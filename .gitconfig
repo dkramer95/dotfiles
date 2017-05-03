@@ -1,0 +1,13 @@
+[user]
+	email = dkramer@student.neumont.edu
+	name = David Kramer
+[push]
+	default = simple
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[alias]
+	d = difftool
+[core]
+	autocrlf = false
