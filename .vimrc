@@ -1,5 +1,5 @@
 " David Kramer's .vimrc file
-" Last Modified: 04/26/17
+" Last Modified: 05/10/17 
 
 set nocompatible		" be iMproved, required
 filetype off			" required
@@ -46,7 +46,7 @@ if (g:slowPluginsEnabled)
 	Plugin 'OmniSharp/omnisharp-vim' 	" C#
 	Plugin 'Valloric/YouCompleteMe' 	" Code Completion
 	Plugin 'artur-shaik/vim-javacomplete2' "Java completion
-	Plugin 'hsanson/vim-android'
+	" Plugin 'hsanson/vim-android' -- This is REALLY slow!!!
 endif
 
 
@@ -71,17 +71,16 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-
-autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
-autocmd BufWritePost *.cs call OmniSharp#AddToProject()
+" Make JSON beautiful
+command! FormatJSON %!python -m json.tool
 
 
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 
-nmap <F5> <Plug>(JavaComplete-Imports-Add);
-imap <F5> <Plug>(JavaComplete-Imports-Add);
+nmap <F5> <Plug>(JavaComplete-Imports-Add)
+imap <F5> <Plug>(JavaComplete-Imports-Add)
 
 "For swap plugin... Move to the open tmux session
 let g:autoswap_detect_tmux = 1
@@ -99,6 +98,12 @@ set number
 
 " Show relative line numbers
 set rnu
+
+" Smart auto-indenting inside numbered lists
+set formatoptions+=n
+
+" Remove comment leader when joining comments
+set formatoptions+=j
 
 " Syntax highlighting
 syntax on
@@ -144,23 +149,33 @@ set showmatch
 " Indent at same position as the previous line
 set autoindent
 
+" Show hidden whitespace chars
+set listchars=tab:>-,eol:¬,trail:␠
+set list
+
 " Use indents instead of 4 spaces
 set shiftwidth=4
 
 " Indentation every 4 columns
 set tabstop=4
 
-" Use tabs not spaces
+" Use tabs NOT spaces
 set noexpandtab
 
 " Encoding
 set encoding=utf8
+
+" Stronger encryption
+setlocal cm=blowfish2
 
 " Automatically update file if modified by external program
 set autoread
 
 " Rendering
 set ttyfast
+
+" Don't redraw during macro playback
+set lazyredraw
 
 " Visual autocomplete for command menu
 set wildmenu
@@ -180,6 +195,9 @@ let mapleader = "\<Space>"
 inoremap kj <Esc>
 cnoremap kj <Esc>
 
+" Yank to end of line
+nnoremap Y y$
+
 " Create and move between tabs more easily
 nnoremap tt <Esc>:tabnew<CR>
 nnoremap tm <Esc>:tabmove<CR>
@@ -198,11 +216,20 @@ map <C-l> <C-W>l
 " Easier access to command mode
 map <leader> :
 
+"<Leader><Leader> -- Open last buffer
+nnoremap <leader><leader> <C-^>
 
 " Toggle spellchecking
-map <leader>ss :setlocal spell!<CR>
+nnoremap <leader>ss :setlocal spell!<CR>
 
-" Easier access to Ex commands
+nnoremap <leader>q :quit<CR>
+nnoremap <leader>qq :quit!<CR>
+nnoremap <leader>qa :qa<CR>
+
+" Show the path of the current file
+nnoremap <leader>p :echo expand('%')<CR>
+
+nnoremap <leader>l :set list!<CR>
 
 " Hotkey to insert current date into the buffer
 nnoremap <F5> "=strftime("%m/%d/%y")<CR>P"
@@ -210,7 +237,6 @@ nnoremap <F5> "=strftime("%m/%d/%y")<CR>P"
 
 " Hotkey to fix indentation
 nnoremap <F7> gg=G
-
 
 " Hotkey to toggle tagbar (requires tagbar plugin)
 nmap <F8> :TagbarToggle<CR>
@@ -232,116 +258,14 @@ vmap <expr> D DVB_Duplicate()
 set clipboard^=unnamedplus
 
 
-" --- Omnisharp configuration ---
-
-" OmniSharp won't work without this setting
-filetype plugin on
-
-"This is the default value, setting it isn't actually necessary
-let g:OmniSharp_host = "http://localhost:2000"
-
-"Set the type lookup function to use the preview window instead of the status line
-"let g:OmniSharp_typeLookupInPreview = 1
-
-"Timeout in seconds to wait for a response from the server
-let g:OmniSharp_timeout = 1
-
-"Showmatch significantly slows down omnicomplete
-"when the first match contains parentheses.
-set noshowmatch
-
-
-"don't autoselect first item in omnicomplete, show if only one item (for preview)
-"remove preview if you don't want to see any documentation whatsoever.
-set completeopt=longest,menuone,preview
-" Fetch full documentation during omnicomplete requests.
-" There is a performance penalty with this (especially on Mono)
-" By default, only Type/Method signatures are fetched. Full documentation can still be fetched when
-" you need it with the :OmniSharpDocumentation command.
-" let g:omnicomplete_fetch_documentation=1
-
-"Move the preview window (code documentation) to the bottom of the screen, so it doesn't move the code!
-"You might also want to look at the echodoc plugin
-set nosplitbelow
-
-" Get Code Issues and syntax errors
-let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
-" If you are using the omnisharp-roslyn backend, use the following
-" let g:syntastic_cs_checkers = ['code_checker']
-augroup omnisharp_commands
-	autocmd!
-
-	"Set autocomplete function to OmniSharp (if not using YouCompleteMe completion plugin)
-	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
-
-	" Synchronous build (blocks Vim)
-	"autocmd FileType cs nnoremap <F5> :wa!<cr>:OmniSharpBuild<cr>
-	" Builds can also run asynchronously with vim-dispatch installed
-	autocmd FileType cs nnoremap <leader>b :wa!<cr>:OmniSharpBuildAsync<cr>
-	" automatic syntax check on events (TextChanged requires Vim 7.4)
-	autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
-
-	" Automatically add new cs files to the nearest project on save
-	autocmd BufWritePost *.cs call OmniSharp#AddToProject()
-
-	"show type information automatically when the cursor stops moving
-	autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
-
-	"The following commands are contextual, based on the current cursor position.
-
-	autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
-	autocmd FileType cs nnoremap <leader>fi :OmniSharpFindImplementations<cr>
-	autocmd FileType cs nnoremap <leader>ft :OmniSharpFindType<cr>
-	autocmd FileType cs nnoremap <leader>fs :OmniSharpFindSymbol<cr>
-	autocmd FileType cs nnoremap <leader>fu :OmniSharpFindUsages<cr>
-	"finds members in the current buffer
-	autocmd FileType cs nnoremap <leader>fm :OmniSharpFindMembers<cr>
-	" cursor can be anywhere on the line containing an issue
-	autocmd FileType cs nnoremap <leader>x  :OmniSharpFixIssue<cr>
-	autocmd FileType cs nnoremap <leader>fx :OmniSharpFixUsings<cr>
-	autocmd FileType cs nnoremap <leader>tt :OmniSharpTypeLookup<cr>
-	autocmd FileType cs nnoremap <leader>dc :OmniSharpDocumentation<cr>
-	"navigate up by method/property/field
-	" autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
-	"navigate down by method/property/field
-	" autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
-
-augroup END
-
-
 " this setting controls how long to wait (in ms) before fetching type / symbol information.
 set updatetime=500
 " Remove 'Press Enter to continue' message when type information is longer than one line.
 set cmdheight=2
 
 " Contextual code actions (requires CtrlP or unite.vim)
-nnoremap <leader><space> :OmniSharpGetCodeActions<cr>
-" Run code actions with text selected in visual mode to extract method
-vnoremap <leader><space> :call OmniSharp#GetCodeActions('visual')<cr>
-
-" rename with dialog
-nnoremap <leader>nm :OmniSharpRename<cr>
-nnoremap <F2> :OmniSharpRename<cr>
-" rename without dialog - with cursor on the symbol to rename... ':Rename newname'
-command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
-
-" Force OmniSharp to reload the solution. Useful when switching branches etc.
-nnoremap <leader>rl :OmniSharpReloadSolution<cr>
-nnoremap <leader>cf :OmniSharpCodeFormat<cr>
-" Load the current .cs file to the nearest project
-nnoremap <leader>tp :OmniSharpAddToProject<cr>
-
-" (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
-nnoremap <leader>ss :OmniSharpStartServer<cr>
-nnoremap <leader>sp :OmniSharpStopServer<cr>
-
-" Add syntax highlighting for types and interfaces
-nnoremap <leader>th :OmniSharpHighlightTypes<cr>
 "Don't ask to save when changing buffers (i.e. when jumping to a type definition)
 set hidden
-
-" Enable snippet completion, requires completeopt-=preview
-let g:OmniSharp_want_snippet=1
 
 " Android support
 let g:gradle_path="/home/dkramer/Documents/MobileAppWorkspace/DataStorage/gradlew"
@@ -373,14 +297,29 @@ function! CharAtCursor()
 	return char
 endfunction
 
+
+
+
+
+
+"////////////////////////////////////////////////////////////////////////////////
+"////////////////////////////////////////////////////////////////////////////////
+"////////////////////////////////////////////////////////////////////////////////
+"
+"                    E X P E R I M E N T A L  Z O N E
+"
+"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
 "Function to paste inside of characters, instead of appending
 "to a new line
 function! SmartPaste()
 	"The char at the current cursor position
 	let currentChar = CharAtCursor()
 
-	let closePairs = [')', ']']
-	let openPairs  = ['(', '[']
+	let closePairs = [')', ']', '}']
+	let openPairs  = ['(', '[', '{']
 
 	if (index(closePairs, currentChar) >= 0)
 		" Go to matching open pair
@@ -397,4 +336,37 @@ function! SmartPaste()
 	endif
 endfunction
 
+function! YankChar()
+	let yankedChar = CharAtCursor()
+	let @c = yankedChar
+	" Delete what was there
+	normal x$"cp
+endfunction
+
 nmap <F10> :call SmartPaste() <CR>
+
+
+function! GoToTab(index)
+	tabfirst
+	execute "normal" . a:index . "gt"
+endfunction
+
+nnoremap g1 <Esc>: call GoToTab(1)<CR>
+nnoremap g2 <Esc>: call GoToTab(2)<CR>
+nnoremap g3 <Esc>: call GoToTab(3)<CR>
+nnoremap g4 <Esc>: call GoToTab(4)<CR>
+nnoremap g5 <Esc>: call GoToTab(5)<CR>
+nnoremap g6 <Esc>: call GoToTab(6)<CR>
+nnoremap g7 <Esc>: call GoToTab(7)<CR>
+nnoremap g8 <Esc>: call GoToTab(8)<CR>
+nnoremap g9 <Esc>: call GoToTab(9)<CR>
+
+function! TitleCaseLine()
+	normal 0
+	while (col(".") >= col("$") - 1)
+		normal vUw
+	endwhile
+	echo "TitleCasedLine!"
+endfunction
+
+nmap tc <Esc>:call TitleCaseLine()<CR>
