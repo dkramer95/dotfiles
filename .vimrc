@@ -263,6 +263,13 @@ set updatetime=500
 " Remove 'Press Enter to continue' message when type information is longer than one line.
 set cmdheight=2
 
+" Always use visual block mode
+nnoremap v <C-V>
+nnoremap <C-V> v
+
+vnoremap v <C-V>
+vnoremap <C-V> v
+
 " Contextual code actions (requires CtrlP or unite.vim)
 "Don't ask to save when changing buffers (i.e. when jumping to a type definition)
 set hidden
