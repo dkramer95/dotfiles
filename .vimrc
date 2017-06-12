@@ -1,5 +1,5 @@
 " David Kramer's .vimrc file
-" Last Modified: 05/10/17 
+" Last Modified: 05/12/17
 
 set nocompatible		" be iMproved, required
 filetype off			" required
@@ -34,6 +34,7 @@ Plugin 'tmhedberg/matchit' 			" Enhanced matching of tags
 Plugin 'jondkinney/dragvisuals.vim' " Awesome visual drag plugin
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'leafgarland/typescript-vim'
 
 Plugin 'christoomey/vim-tmux-navigator'
 
@@ -229,6 +230,7 @@ nnoremap <leader>qa :qa<CR>
 " Show the path of the current file
 nnoremap <leader>p :echo expand('%')<CR>
 
+" Toggle between showing whitespace chars
 nnoremap <leader>l :set list!<CR>
 
 " Hotkey to insert current date into the buffer
@@ -254,6 +256,13 @@ vmap <expr> L DVB_Drag('right')
 vmap <expr> J DVB_Drag('down')
 vmap <expr> K DVB_Drag('up')
 vmap <expr> D DVB_Duplicate()
+
+" Always use visual block mode
+nnoremap v <C-V>
+nnoremap <C-V> v
+
+vnoremap v <C-V>
+vnoremap <C-V> v
 
 set clipboard^=unnamedplus
 
