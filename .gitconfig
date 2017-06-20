@@ -8,6 +8,10 @@
 [difftool]
 	prompt = false
 [alias]
+	amend = commit --amend
+	br = branch
+	co = checkout
 	d = difftool
+	st = status
 [core]
 	autocrlf = false
