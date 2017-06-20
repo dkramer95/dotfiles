@@ -38,7 +38,7 @@ Plugin 'leafgarland/typescript-vim'
 
 Plugin 'christoomey/vim-tmux-navigator'
 
-let g:slowPluginsEnabled=0
+let g:slowPluginsEnabled=1
 
 "These plugins are a bit hefty and sometimes we don't always
 "want to load them
@@ -140,6 +140,9 @@ set laststatus=2
 
 " Lines to scroll when cursor leaves screen
 set scrolljump=5
+
+" Increase memory limit of registers
+set viminfo='20,<1000
 
 " Minimum lines to keep above and below cursor
 set scrolloff=5
