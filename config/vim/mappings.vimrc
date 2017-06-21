@@ -1,0 +1,109 @@
+"------------------------------------------------------------------------------
+" mappings.vimrc
+" Contains custom keymappings for internal vim functions as well as
+" third-party plugins
+"------------------------------------------------------------------------------
+
+let mapleader = "\<Space>"
+
+" Easier escape
+inoremap kj <Esc>
+cnoremap kj <Esc>
+
+" Yank to end of line
+nnoremap Y y$
+
+" Create and move between tabs more easily
+nnoremap tt <Esc>:tabnew<CR>
+nnoremap tm <Esc>:tabmove<CR>
+nnoremap t$ <Esc>:tablast<CR>
+nnoremap t0 <Esc>:tabfirst<CR>
+
+" Disable search match highlights
+map nh <Esc>:nohl<CR>
+
+" Move between windows more easily
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Easier access to command mode
+map <leader> :
+
+"<Leader><Leader> -- Open last buffer
+nnoremap <leader><leader> <C-^>
+
+" Toggle spellchecking
+nnoremap <leader>ss :setlocal spell!<CR>
+
+" Faster exiting
+nnoremap <leader>q :quit<CR>
+nnoremap <leader>qq :quit!<CR>
+nnoremap <leader>qa :qa<CR>
+
+set shortmess=a
+nnoremap <Tab> :bprevious<CR>:redraw<CR>:ls<CR>
+nnoremap <S-Tab> :bnext<CR>:redraw<CR>:ls<CR>
+
+" Show the path of the current file
+nnoremap <leader>p :echo expand('%')<CR>
+
+" Toggle between showing whitespace chars
+nnoremap <leader>l :set list!<CR>
+
+" Hotkey to insert current date into the buffer
+nnoremap <F5> "=strftime("%m/%d/%y")<CR>P"
+inoremap <F5> <Esc>:let @t=strftime('%m/%d/%y')<CR>a<C-r>t
+
+" Hotkey to fix indentation
+nnoremap <F7> gg=G
+
+" Hotkey to directly editor .vimrc in a new tab
+inoremap <F12> <Esc>:tabnew $MYVIMRC<CR>
+nnoremap <F12> <Esc>:tabnew $MYVIMRC<CR>
+
+" Quickly source .vimrc
+nnoremap <leader>rv :source $MYVIMRC<CR>
+
+" Always use visual block mode
+nnoremap v <C-V>
+nnoremap <C-V> v
+
+vnoremap v <C-V>
+vnoremap <C-V> v
+
+" Mappings that use third party plugins
+
+" Visual drag mappings ('jondkinney/dragvisuals.vim')
+vmap <expr> H DVB_Drag('left')
+vmap <expr> L DVB_Drag('right')
+vmap <expr> J DVB_Drag('down')
+vmap <expr> K DVB_Drag('up')
+vmap <expr> D DVB_Duplicate()
+
+" Hotkey to toggle tagbar ('majutshi/tagbar')
+nmap <F8> :TagbarToggle<CR>
+imap <F8> :TagbarToggle<CR>
+
+" Neocomplete mappings ('Shougo/neocomplete')
+inoremap <expr><C-g>	neocomplete#undo_completion()
+inoremap <expr><C-l>	neocomplete#complete_common_string()
+
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+	return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+
+" Snippet config
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>	<Plug>(neosnippet_expand_or_jump)
+smap <C-k>	<Plug>(neosnippet_expand_or_jump)
+xmap <C-k>	<Plug>(neosnippet_expand_target)
