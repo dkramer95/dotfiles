@@ -32,15 +32,20 @@ Plug 'ctrlpvim/ctrlp.vim' 		" Fast Fuzzy File finder
 " Plug 'moll/vim-node' 				" NodeJS
 Plug 'tpope/vim-dispatch'
 
-" Autocompletion / snippets
+" Autocompletion
+if (has('lua'))
+	Plug 'Shougo/neocomplete'
+endif
+
+" Completion snippets
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'honza/vim-snippets'
 Plug 'Shougo/vimshell'
-Plug 'Shougo/neocomplete'
 
-" Plugin '1995eaton/vim-better-javascript-completion'
-" Plugin 'OmniSharp/omnisharp-vim' 	" C#
-" Plugin 'artur-shaik/vim-javacomplete2' "Java completion
+Plug '1995eaton/vim-better-javascript-completion'
+Plug 'OmniSharp/omnisharp-vim' 	" C#
+Plug 'artur-shaik/vim-javacomplete2' "Java completion
 
 Plug 'tmhedberg/matchit' 			" Enhanced matching of tags
 
@@ -53,6 +58,17 @@ Plug 'christoomey/vim-tmux-navigator' " Tmux navigation integration
 call plug#end()
 
 set rtp+=~/.vim/bundle/plugin
+
+" Check to make sure that we only map shortcuts if we're in this
+" plugins.vimrc file
+autocmd BufRead *.vimrc let g:is_plug_file = expand('%:t') == 'plugins.vimrc'
+
+" Keymappings for performing common plugin management operations local to this
+" file
+autocmd BufRead *.vimrc if g:is_plug_file == 1 | nnoremap <buffer> pu :PlugUpdate<CR>
+autocmd BufRead *.vimrc if g:is_plug_file == 1 | nnoremap <buffer> pc :PlugClean<CR>
+autocmd BufRead *.vimrc if g:is_plug_file == 1 | nnoremap <buffer> pi :PlugInstall<CR>
+
 
 " Make JSON beautiful
 command! FormatJSON %!python -m json.tool
@@ -97,6 +113,8 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')

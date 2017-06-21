@@ -15,9 +15,21 @@ nnoremap Y y$
 
 " Create and move between tabs more easily
 nnoremap tt <Esc>:tabnew<CR>
-nnoremap tm <Esc>:tabmove<CR>
-nnoremap t$ <Esc>:tablast<CR>
+
+" Move tab forward
+nnoremap tm <Esc>:tabmove +<CR>
+
+" Move tab backward
+nnoremap tM <Esc>:tabmove - <CR>
+
+" Go to the first tab
 nnoremap t0 <Esc>:tabfirst<CR>
+
+" Go the the last tab
+nnoremap t$ <Esc>:tablast<CR>
+
+" Move current window to tab
+nnoremap mt <C-w>T
 
 " Disable search match highlights
 map nh <Esc>:nohl<CR>
@@ -104,6 +116,6 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 " Snippet config
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>	<Plug>(neosnippet_expand_or_jump)
-smap <C-k>	<Plug>(neosnippet_expand_or_jump)
-xmap <C-k>	<Plug>(neosnippet_expand_target)
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
