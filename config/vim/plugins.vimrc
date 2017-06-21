@@ -16,7 +16,6 @@ endif
 " Plugins (managed via Plug)
 call plug#begin('~/.vim/bundle')
 
-" Plugin 'VundleVim/Vundle.vim' 		" Let Vundle manage Vundle
 Plug 'tpope/vim-surround' 		" Surround text
 Plug 'majutsushi/tagbar' 			" Class/Function Outline Viewer
 Plug 'airblade/vim-gitgutter' 	" Show git status in the gutter
