@@ -17,20 +17,20 @@ endif
 call plug#begin('~/.vim/bundle')
 
 Plug 'tpope/vim-surround' 		" Surround text
-Plug 'majutsushi/tagbar' 			" Class/Function Outline Viewer
-Plug 'airblade/vim-gitgutter' 	" Show git status in the gutter
-Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/syntastic' 		" Syntax checking
-Plug 'scrooloose/nerdtree' 		" File Explorer
-Plug 'gioele/vim-autoswap' 		" Fix swap file prompts
-Plug 'alvan/vim-closetag' 		" Autoclose pairs
-Plug 'jiangmiao/auto-pairs' 		" Autocomplete matching pairs
-Plug 'tomtom/tcomment_vim' 		" Commenting
-Plug 'Flazz/vim-colorschemes' 	" Bunch of cool colorschemes
-Plug 'ctrlpvim/ctrlp.vim' 		" Fast Fuzzy File finder
+Plug 'majutsushi/tagbar'		" Class/Function Outline Viewer
+Plug 'airblade/vim-gitgutter'	" Show git status in the gutter
+Plug 'tpope/vim-fugitive'		" Git wrapper
+Plug 'scrooloose/syntastic'		" Syntax checking
+Plug 'scrooloose/nerdtree'		" File Explorer
+Plug 'gioele/vim-autoswap'		" Fix swap file prompts
+Plug 'alvan/vim-closetag'		" Autoclose pairs
+Plug 'jiangmiao/auto-pairs'		" Autocomplete matching pairs
+Plug 'tomtom/tcomment_vim'		" Commenting
+Plug 'Flazz/vim-colorschemes'	" Bunch of cool colorschemes
+Plug 'ctrlpvim/ctrlp.vim'		" Fast Fuzzy File finder
 
 " Plug 'moll/vim-node' 				" NodeJS
-Plug 'tpope/vim-dispatch'
+"Plug 'tpope/vim-dispatch'
 
 " Autocompletion
 if (has('lua'))
@@ -59,15 +59,20 @@ call plug#end()
 
 set rtp+=~/.vim/bundle/plugin
 
+" TODO -- These autocmds are causing very slow performance when yanking long
+" lines. Find a better way or just remove, but it is too slow to work with
+" currently.
+
+
 " Check to make sure that we only map shortcuts if we're in this
 " plugins.vimrc file
-autocmd BufRead *.vimrc let g:is_plug_file = expand('%:t') == 'plugins.vimrc'
+"autocmd BufRead *.vimrc let g:is_plug_file = expand('%:t') == 'plugins.vimrc'
 
 " Keymappings for performing common plugin management operations local to this
 " file
-autocmd BufRead *.vimrc if g:is_plug_file == 1 | nnoremap <buffer> pu :PlugUpdate<CR>
-autocmd BufRead *.vimrc if g:is_plug_file == 1 | nnoremap <buffer> pc :PlugClean<CR>
-autocmd BufRead *.vimrc if g:is_plug_file == 1 | nnoremap <buffer> pi :PlugInstall<CR>
+"autocmd BufRead *.vimrc if g:is_plug_file == 1 | nnoremap <buffer> pu :PlugUpdate<CR>
+"autocmd BufRead *.vimrc if g:is_plug_file == 1 | nnoremap <buffer> pc :PlugClean<CR>
+"autocmd BufRead *.vimrc if g:is_plug_file == 1 | nnoremap <buffer> pi :PlugInstall<CR>
 
 
 " Make JSON beautiful
@@ -78,6 +83,8 @@ command! FormatJSON %!python -m json.tool
 " Airline theme config
 let g:airline_theme="base16color"
 
+" Adds ascii code values to the right of airline status bar in hex and decimalj
+let g:airline_section_z = '%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__# :%3v | %03b 0x%0B'
 
 " Syntastic config
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
