@@ -111,5 +111,11 @@ set updatetime=500
 " Remove 'Press Enter to continue' message when type information is longer than one line.
 set cmdheight=2
 
-" Access system clipboard
-set clipboard=unnamedplus
+" Access system clipboarod
+if (has("win32") || (has("unix") && (system("uname -s") =~ "Darwin")))
+	" Windows or MacOS
+	set clipboard=unnamed
+else
+	" Linux
+	set clipboard=unnamedplus
+endif
