@@ -8,15 +8,17 @@
 # want to be installed, simply add a '#' to the front of the line and it will be
 # ignored.
 
-git				# Source control
-htop			# Enhanced 'top' program for viewing processes
-iftop			# Network traffic monitor
-lynx			# Command line web browser
-mongo			# NoSQL JSON Document Database
-#nbtscan		# Network scanner
-nmap			# Network port scanner
-node			# Backend JavaScript web framework
-npm				# Package manager for NodeJS
-tmux			# Terminal multiplexer
-tty-clock		# Blocky Terminal Clock
-vim				# Insanely powerful awesome text editor
+git               # Source control
+htop              # Enhanced 'top' program for viewing processes
+iftop             # Network traffic monitor
+lynx              # Command line web browser
+mongo             # NoSQL JSON Document Database
+#nbtscan          # Network scanner
+nmap              # Network port scanner
+node              # Backend JavaScript web framework
+npm               # Package manager for NodeJS
+tmux              # Terminal multiplexer
+tty-clock         # Blocky Terminal Clock
+vim               # Insanely powerful awesome text editor
+
+# NOTE -- If this opened from running the 'setup-unix' simply :wq! after you're done!

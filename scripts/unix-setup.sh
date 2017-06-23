@@ -8,7 +8,8 @@
 # This script is intended to quickly setup a new unix based machine with common
 # development tools and other useful utilities that will greatly improve
 # workflow effiency. It will load in all the necessary dotfile configs and
-# handle linking them up
+# handle linking them up and will ask the user for each file if they wish to
+# have it linked.
 
 # Logging Stuff
 
@@ -158,18 +159,31 @@ function symLinkDotFiles {
 	ensureDotfilesExist $dotfilesDir
 	createBackupDirIfNotExists "$USER_HOME/olddotfiles-$(myDate)"
 
-	# Get only hidden files and filter out .git stuff
-	local dotfiles=$(ls -a $USER_HOME/dotfiles | grep '^\.' | sed 's/.git$//')
+	# Get only hidden files and filter out .git stuff and './ and ../'
+	local dotfiles=$(ls -a $USER_HOME/dotfiles | grep '^\.' | sed -e 's/.git$//' -e 's/\.\{1,2\}$//')
 
-	# Symlink all dotfiles
+	local j=1
+	local count=$(sed '/^\s*$/d' <<< "$dotfiles" | wc -l | awk ' { print $1 }')
+
 	for file in $dotfiles; do
 		# Check to make sure we're not linking to a directory
 		if ! [ -d $file ]; then
-			symLinkWithBackup "$dotfilesDir/$file" $file $backupDir
+			# Prompt user if they want to link with the dotfile
+			while true; do
+				log "" # clear error colors if they exist
+				read -p "[$j / $count] Do you wish to link [$file]? Y[es] or N[o] > " yn
+				case $yn in
+					[Yy]* ) symLinkWithBackup "$dotfilesDir/$file" $file $backupDir; break;;
+					[Nn]* ) break;;
+					* ) error "[ERROR!] Invalid input:[$yn] Please enter Y[es] or N[o]!";;
+				esac
+			done
+			j=$((j+1))
 		fi
 	done
 }
 
+# Get home directory of the user
 function getUserDir {
 	if [ "$EUID" -eq 0 ]; then
 		# Run as root
@@ -183,6 +197,8 @@ function getUserDir {
 # Handles executing everything that is necessary
 function run {
 	log "+++Executing setup script+++"
+
+	vim packages.txt
 
 	# Update $USER_HOME variable
 	getUserDir
