@@ -112,7 +112,7 @@ function readPackageList {
 # Uses the system package manager to update and install all packages
 # that are defined in the package file
 function installMissingPackages {
-	local packageFile=$HOME/dotfiles/scripts/packages.txt
+	local packageFile=$USER_HOME/dotfiles/scripts/packages.txt
 	local packages=$(readPackageList $packageFile)
 	local packageManager=$(getPackageManager)
 
@@ -142,24 +142,24 @@ function ensureDotfilesExist {
 	local dotfilesDir=$1
 	# Ensure that dotfiles directory exists in the user's home folder
 	if ! [ -d $dotfilesDir ]; then
-		error "[ERROR!] No dotfiles directory found in [$HOME]"
+		error "[ERROR!] No dotfiles directory found in [$USER_HOME]"
 		exit -1
 	fi
 }
 
 # Creates symlinks to all dotfiles in this repo
 function symLinkDotFiles {
-	cd $HOME
+	cd $USER_HOME
 
 	# Where all the dotfiles live
-	local dotfilesDir="$HOME/dotfiles"
-	local backupDir="$HOME/olddotfiles-$(myDate)"
+	local dotfilesDir="$USER_HOME/dotfiles"
+	local backupDir="$USER_HOME/olddotfiles-$(myDate)"
 
 	ensureDotfilesExist $dotfilesDir
-	createBackupDirIfNotExists "$HOME/olddotfiles-$(myDate)"
+	createBackupDirIfNotExists "$USER_HOME/olddotfiles-$(myDate)"
 
 	# Get only hidden files and filter out .git stuff
-	local dotfiles=$(ls -a $HOME/dotfiles | grep '^\.' | sed 's/.git$//')
+	local dotfiles=$(ls -a $USER_HOME/dotfiles | grep '^\.' | sed 's/.git$//')
 
 	# Symlink all dotfiles
 	for file in $dotfiles; do
@@ -170,9 +170,24 @@ function symLinkDotFiles {
 	done
 }
 
+function getUserDir {
+	if [ "$EUID" -eq 0 ]; then
+		# Run as root
+		USER_HOME=$(eval echo ~${SUDO_USER})
+	else
+		# Run as a normal user
+		USER_HOME=$(env | grep 'HOME=.*' | cut -d= -f2)
+	fi
+}
+
 # Handles executing everything that is necessary
 function run {
 	log "+++Executing setup script+++"
+
+	# Update $USER_HOME variable
+	getUserDir
+
+	# Do awesome things
 	installMissingPackages
 	symLinkDotFiles
 	log "+++Finished!+++"
