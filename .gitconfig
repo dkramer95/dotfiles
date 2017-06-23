@@ -1,17 +1,27 @@
-[user]
-	email = dkramer@student.neumont.edu
-	name = David Kramer
-[push]
-	default = simple
+# .gitconfig
+[alias]
+	amend = commit --amend
+	br = branch
+	cm = commit
+	co = checkout
+	d = difftool
+	hreset = reset --hard
+	lg = log
+	st = status
+	pushup = push --set-upstream
+[core]
+	autocrlf = false
+	editor = /usr/bin/vim
+	excludesfile = ~/.gitignore
 [diff]
 	tool = vimdiff
 [difftool]
 	prompt = false
-[alias]
-	amend = commit --amend
-	br = branch
-	co = checkout
-	d = difftool
-	st = status
-[core]
-	autocrlf = false
+[fetch]
+	prune = true
+[push]
+	default = simple
+
+# use separate file for git credentials
+[include]
+	path = ~/.gitconfig.local
