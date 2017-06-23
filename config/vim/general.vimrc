@@ -31,6 +31,10 @@ set showmode
 " Highlight current line
 set cursorline
 
+" Show a column line to help guide codewrapping
+set colorcolumn=110
+highlight ColorColumn ctermbg=darkgray
+
 " Make searching better
 set gdefault
 set ignorecase

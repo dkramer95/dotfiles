@@ -78,6 +78,9 @@ nnoremap <F12> <Esc>:tabnew $MYVIMRC<CR>
 " Quickly source .vimrc
 nnoremap <leader>rv :source $MYVIMRC<CR>
 
+" Yank the current char at the cursor to clipboard
+nnoremap yc :let @* = CharAtCursor()<CR>
+
 " Always use visual block mode
 nnoremap v <C-V>
 nnoremap <C-V> v
