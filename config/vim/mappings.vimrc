@@ -90,41 +90,47 @@ vnoremap <C-V> v
 
 " Mappings that use third party plugins
 
-" Fuzzy file finder ('wincent/command-t')
-nnoremap <C-p> :CommandT<CR>
+if exists(':CommandT')
+	nnoremap <C-p> :CommandT<CR>
+endif
 
-" Visual drag mappings ('jondkinney/dragvisuals.vim')
-vmap <expr> H DVB_Drag('left')
-vmap <expr> L DVB_Drag('right')
-vmap <expr> J DVB_Drag('down')
-vmap <expr> K DVB_Drag('up')
-vmap <expr> D DVB_Duplicate()
+if exists('*DVB_Drag')
+	vmap <expr> H DVB_Drag('left')
+	vmap <expr> L DVB_Drag('right')
+	vmap <expr> J DVB_Drag('down')
+	vmap <expr> K DVB_Drag('up')
+	vmap <expr> D DVB_Duplicate()
+endif
 
-" Hotkey to toggle tagbar ('majutshi/tagbar')
-nmap <F8> :TagbarToggle<CR>
-imap <F8> :TagbarToggle<CR>
+if exists(':TagbarToggle')
+	nmap <F8> :TagbarToggle<CR>
+	imap <F8> :TagbarToggle<CR>
+endif
 
-" Neocomplete mappings ('Shougo/neocomplete')
-inoremap <expr><C-g>	neocomplete#undo_completion()
-inoremap <expr><C-l>	neocomplete#complete_common_string()
+if exists (':NeoComplete')
+	inoremap <expr><C-g>	neocomplete#undo_completion()
+	inoremap <expr><C-l>	neocomplete#complete_common_string()
 
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-	return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+	" <CR>: close popup and save indent.
+	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+	function! s:my_cr_function()
+		return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+	endfunction
+	" <TAB>: completion.
+	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+	" <C-h>, <BS>: close popup and delete backword char.
+	inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+	inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
-" Snippet config
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
+	" Snippet config
+	" Plugin key-mappings.
+	" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+	imap <C-k> <Plug>(neosnippet_expand_or_jump)
+	smap <C-k> <Plug>(neosnippet_expand_or_jump)
+	xmap <C-k> <Plug>(neosnippet_expand_target)
+endif
 
-" NERDTree config
-nmap <F7> :NERDTreeToggle<CR>
+if exists(':NERDTreeToggle')
+	" NERDTree config
+	nmap <F7> :NERDTreeToggle<CR>
+endif

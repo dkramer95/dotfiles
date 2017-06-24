@@ -105,7 +105,7 @@ set timeoutlen=350
 set wildmenu
 
 " Text colorscheme
-colorscheme brogrammer
+silent! colorscheme brogrammer
 
 " For those emergencies...
 set mouse=a
