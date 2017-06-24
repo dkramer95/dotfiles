@@ -1,0 +1,51 @@
+#.zshrc -- dependent on 'oh-my-zsh'
+
+# Path to oh-my-zsh installation
+export ZSH=$HOME/.oh-my-zsh
+
+# Visual theme
+ZSH_THEME="half-life"
+
+# Plugins
+plugins=(battery git vi-mode jsontools)
+
+source $ZSH/oh-my-zsh.sh
+
+# Custom ZSH folder
+ZSH_CUSTOM=$HOME/dotfiles/config/zsh/
+
+# Disable terminal freeze
+stty -ixon
+
+# Source existing aliases
+if [ -f ~/.bash_aliases ]; then
+	. ~/.bash_aliases
+fi
+
+# enable vim mode on command line
+# bindkey -v
+function zle-line-init zle-keymap-select {
+	NORMAL_MODE_INDICATOR="%{$bg_bold[green]%}-- NORMAL --%{$reset_color%}"
+	INSERT_MODE_INDICATOR="%{$fg_bold[green]%}-- INSERT --%{$reset_color%}"
+
+	RPS1="${${KEYMAP/vicmd/$NORMAL_MODE_INDICATOR}/(main|viins)/$INSERT_MODE_INDICATOR}"
+	RPS2=$RPS1
+	zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+# enable additional vim mode functionality
+bindkey -a u undo
+bindkey -a '^R' redo
+bindkey '^?' backward-delete-char  #backspace
+
+# Remap escape key to what I normally use in vim
+bindkey kj vi-cmd-mode
+
+# Fix <Shift><Tab> not working for going back
+bindkey '^[[Z' reverse-menu-complete
+
+# Start up with tmux
+tmux
+clear # Clear annoying warning
