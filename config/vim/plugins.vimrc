@@ -16,24 +16,51 @@ endif
 " Plugins (managed via Plug)
 call plug#begin('~/.vim/bundle')
 
-Plug 'tpope/vim-surround' 		" Surround text
-Plug 'majutsushi/tagbar'		" Class/Function Outline Viewer
-Plug 'airblade/vim-gitgutter'	" Show git status in the gutter
-Plug 'tpope/vim-fugitive'		" Git wrapper
-Plug 'scrooloose/syntastic'		" Syntax checking
+" Surround text
+Plug 'tpope/vim-surround'
 
-Plug 'gioele/vim-autoswap'		" Fix swap file prompts
-Plug 'alvan/vim-closetag'		" Autoclose pairs
-Plug 'jiangmiao/auto-pairs'		" Autocomplete matching pairs
-Plug 'tomtom/tcomment_vim'		" Commenting
-Plug 'Flazz/vim-colorschemes'	" Bunch of cool colorschemes
-Plug 'wincent/command-t'		" Fast Fuzzy File finder
+" Class/Function Outline Viewer
+Plug 'majutsushi/tagbar'
 
-" File explorer
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+" Show git status in the gutter
+Plug 'airblade/vim-gitgutter'
 
-" Plug 'moll/vim-node' 				" NodeJS
-"Plug 'tpope/vim-dispatch'
+" Git wrapper
+Plug 'tpope/vim-fugitive'
+
+" Syntax checking
+Plug 'scrooloose/syntastic'
+
+" Fix swap file prompts
+Plug 'gioele/vim-autoswap'
+
+" Autoclose pairs
+Plug 'alvan/vim-closetag'
+
+" Autocomplete matching pairs
+Plug 'jiangmiao/auto-pairs'
+
+" Commenting
+Plug 'tomtom/tcomment_vim'
+
+" Bunch of cool colorschemes
+Plug 'Flazz/vim-colorschemes'
+
+" Fast Fuzzy File finder
+Plug 'wincent/command-t'
+
+" Enhanced matching of tags
+Plug 'tmhedberg/matchit'
+
+" Awesome visual drag plugin
+Plug 'jondkinney/dragvisuals.vim'
+
+" Status line plugin w/ themes
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Tmux navigation integration
+Plug 'christoomey/vim-tmux-navigator'
 
 " Autocompletion
 if (has('lua'))
@@ -46,19 +73,20 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/vimshell'
 
-Plug '1995eaton/vim-better-javascript-completion'
-Plug 'OmniSharp/omnisharp-vim' 	" C#
-Plug 'artur-shaik/vim-javacomplete2' "Java completion
+" Lazy / deferred loaded plugins (to decrease startup time)
 
-Plug 'tmhedberg/matchit'			" Enhanced matching of tags
+" File explorer
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-Plug 'jondkinney/dragvisuals.vim' " Awesome visual drag plugin
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'leafgarland/typescript-vim'
+" Code completion
+Plug 'moll/vim-node', { 'for': ['javacript'] }
+Plug '1995eaton/vim-better-javascript-completion', { 'for': ['javascript']}
+Plug 'OmniSharp/omnisharp-vim', { 'for': ['javascript', 'css', 'java', 'cs'] }
+Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java'] }
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 
-Plug 'christoomey/vim-tmux-navigator' " Tmux navigation integration
 call plug#end()
+
 
 set rtp+=~/.vim/bundle/plugin
 
@@ -103,6 +131,7 @@ let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType cs setlocal omnifunc=csscomplete#Complete
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
