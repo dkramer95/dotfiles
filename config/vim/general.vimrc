@@ -98,6 +98,9 @@ set ttyfast
 " Don't redraw during macro playback
 set lazyredraw
 
+" Decrease command interp wait time (default 1000ms)
+set timeoutlen=350
+
 " Visual autocomplete for command menu
 set wildmenu
 
@@ -111,7 +114,7 @@ set mouse=a
 set hidden
 
 " this setting controls how long to wait (in ms) before fetching type / symbol information.
-set updatetime=500
+set updatetime=2000
 " Remove 'Press Enter to continue' message when type information is longer than one line.
 set cmdheight=2
 

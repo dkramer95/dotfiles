@@ -90,6 +90,9 @@ vnoremap <C-V> v
 
 " Mappings that use third party plugins
 
+" Fuzzy file finder ('wincent/command-t')
+nnoremap <C-p> :CommandT<CR>
+
 " Visual drag mappings ('jondkinney/dragvisuals.vim')
 vmap <expr> H DVB_Drag('left')
 vmap <expr> L DVB_Drag('right')

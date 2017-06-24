@@ -21,13 +21,16 @@ Plug 'majutsushi/tagbar'		" Class/Function Outline Viewer
 Plug 'airblade/vim-gitgutter'	" Show git status in the gutter
 Plug 'tpope/vim-fugitive'		" Git wrapper
 Plug 'scrooloose/syntastic'		" Syntax checking
-Plug 'scrooloose/nerdtree'		" File Explorer
+
 Plug 'gioele/vim-autoswap'		" Fix swap file prompts
 Plug 'alvan/vim-closetag'		" Autoclose pairs
 Plug 'jiangmiao/auto-pairs'		" Autocomplete matching pairs
 Plug 'tomtom/tcomment_vim'		" Commenting
 Plug 'Flazz/vim-colorschemes'	" Bunch of cool colorschemes
-Plug 'ctrlpvim/ctrlp.vim'		" Fast Fuzzy File finder
+Plug 'wincent/command-t'		" Fast Fuzzy File finder
+
+" File explorer
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " Plug 'moll/vim-node' 				" NodeJS
 "Plug 'tpope/vim-dispatch'
@@ -47,7 +50,7 @@ Plug '1995eaton/vim-better-javascript-completion'
 Plug 'OmniSharp/omnisharp-vim' 	" C#
 Plug 'artur-shaik/vim-javacomplete2' "Java completion
 
-Plug 'tmhedberg/matchit' 			" Enhanced matching of tags
+Plug 'tmhedberg/matchit'			" Enhanced matching of tags
 
 Plug 'jondkinney/dragvisuals.vim' " Awesome visual drag plugin
 Plug 'vim-airline/vim-airline'
@@ -58,22 +61,6 @@ Plug 'christoomey/vim-tmux-navigator' " Tmux navigation integration
 call plug#end()
 
 set rtp+=~/.vim/bundle/plugin
-
-" TODO -- These autocmds are causing very slow performance when yanking long
-" lines. Find a better way or just remove, but it is too slow to work with
-" currently.
-
-
-" Check to make sure that we only map shortcuts if we're in this
-" plugins.vimrc file
-"autocmd BufRead *.vimrc let g:is_plug_file = expand('%:t') == 'plugins.vimrc'
-
-" Keymappings for performing common plugin management operations local to this
-" file
-"autocmd BufRead *.vimrc if g:is_plug_file == 1 | nnoremap <buffer> pu :PlugUpdate<CR>
-"autocmd BufRead *.vimrc if g:is_plug_file == 1 | nnoremap <buffer> pc :PlugClean<CR>
-"autocmd BufRead *.vimrc if g:is_plug_file == 1 | nnoremap <buffer> pi :PlugInstall<CR>
-
 
 " Make JSON beautiful
 command! FormatJSON %!python -m json.tool
