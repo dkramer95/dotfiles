@@ -62,6 +62,10 @@ Plug 'vim-airline/vim-airline-themes'
 " Tmux navigation integration
 Plug 'christoomey/vim-tmux-navigator'
 
+" Async build / test dispatcher (required with omnisharp)
+Plug 'tpope/vim-dispatch'
+
+
 " Autocompletion
 if (has('lua'))
 	Plug 'Shougo/neocomplete'

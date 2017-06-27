@@ -25,8 +25,8 @@ fi
 # enable vim mode on command line
 # bindkey -v
 function zle-line-init zle-keymap-select {
-	NORMAL_MODE_INDICATOR="%{$bg_bold[green]%}-- NORMAL --%{$reset_color%}"
-	INSERT_MODE_INDICATOR="%{$fg_bold[green]%}-- INSERT --%{$reset_color%}"
+	NORMAL_MODE_INDICATOR="%{$bg_bold[green]%}%{$fg_bold[black]%}-- NORMAL --%{$reset_color%}"
+	INSERT_MODE_INDICATOR="%{$bg_bold[yellow]%}%{$fg_bold[black]%}-- INSERT --%{$reset_color%}"
 
 	RPS1="${${KEYMAP/vicmd/$NORMAL_MODE_INDICATOR}/(main|viins)/$INSERT_MODE_INDICATOR}"
 	RPS2=$RPS1
@@ -45,6 +45,10 @@ bindkey kj vi-cmd-mode
 
 # Fix <Shift><Tab> not working for going back
 bindkey '^[[Z' reverse-menu-complete
+
+# Load directory colors
+[ -e $HOME/.dircolors  ] && eval $(dircolors -b $HOME/.dircolors) || eval $(dircolors -b)
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # Start up with tmux
 tmux

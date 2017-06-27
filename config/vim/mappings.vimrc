@@ -79,7 +79,12 @@ nnoremap <F12> <Esc>:tabnew $MYVIMRC<CR>
 nnoremap <leader>rv :source $MYVIMRC<CR>
 
 " Yank the current char at the cursor to clipboard
-nnoremap yc :let @* = CharAtCursor()<CR>
+if (&clipboard == "unnamedplus")
+	nnoremap <silent>yc :let @+ = CharAtCursor()<CR>
+elseif (&clipboard == "unnamed")
+	nnoremap <silent>yc :let @* = CharAtCursor()<CR>
+endif
+
 
 " Always use visual block mode
 nnoremap v <C-V>
@@ -107,7 +112,11 @@ if exists(':TagbarToggle')
 	imap <F8> :TagbarToggle<CR>
 endif
 
-if exists (':NeoComplete')
+if exists(":TComment")
+	nnoremap # :TComment<CR>
+endif
+
+" if exists (':NeoComplete')
 	inoremap <expr><C-g>	neocomplete#undo_completion()
 	inoremap <expr><C-l>	neocomplete#complete_common_string()
 
@@ -128,7 +137,7 @@ if exists (':NeoComplete')
 	imap <C-k> <Plug>(neosnippet_expand_or_jump)
 	smap <C-k> <Plug>(neosnippet_expand_or_jump)
 	xmap <C-k> <Plug>(neosnippet_expand_target)
-endif
+" endif
 
 if exists(':NERDTreeToggle')
 	" NERDTree config
