@@ -86,6 +86,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'moll/vim-node', { 'for': ['javacript'] }
 Plug '1995eaton/vim-better-javascript-completion', { 'for': ['javascript']}
 Plug 'OmniSharp/omnisharp-vim', { 'for': ['javascript', 'css', 'java', 'cs'] }
+Plug 'ctrlpvim/ctrlp.vim', { 'for': ['javascript', 'css', 'java', 'cs'] }
 Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java'] }
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 
@@ -111,6 +112,9 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+" Neosnippets config
+let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets'
+
 " Neocomplete Config
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
@@ -135,7 +139,7 @@ let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType cs setlocal omnifunc=csscomplete#Complete
+autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
