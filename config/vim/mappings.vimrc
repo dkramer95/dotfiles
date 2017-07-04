@@ -5,6 +5,7 @@
 "------------------------------------------------------------------------------
 
 let mapleader = "\<Space>"
+let maplocalleader = ","
 
 " Easier escape
 inoremap kj <Esc>
@@ -23,10 +24,12 @@ nnoremap tm <Esc>:tabmove +<CR>
 nnoremap tM <Esc>:tabmove - <CR>
 
 " Go to the first tab
-nnoremap t0 <Esc>:tabfirst<CR>
+nmap t0 <Esc>:tabfirst<CR>
+nmap g0 t0
 
 " Go the the last tab
-nnoremap t$ <Esc>:tablast<CR>
+nmap t$ <Esc>:tablast<CR>
+nmap g$ t$
 
 " Move current window to tab
 nnoremap mt <C-w>T
@@ -59,10 +62,10 @@ nnoremap <Tab> :bprevious<CR>:redraw<CR>:ls<CR>
 nnoremap <S-Tab> :bnext<CR>:redraw<CR>:ls<CR>
 
 " Show the path of the current file
-nnoremap <leader>p :echo expand('%')<CR>
+nnoremap <LocalLeader>p :echo expand('%')<CR>
 
 " Toggle between showing whitespace chars
-nnoremap <leader>l :set list!<CR>
+nnoremap <LocalLeader>l :set list!<CR>
 
 " Hotkey to insert current date into the buffer
 nnoremap <F5> "=strftime("%m/%d/%y")<CR>P"
@@ -74,6 +77,9 @@ nnoremap <F7> gg=G
 " Hotkey to directly editor .vimrc in a new tab
 inoremap <F12> <Esc>:tabnew $MYVIMRC<CR>
 nnoremap <F12> <Esc>:tabnew $MYVIMRC<CR>
+
+" Additional fast toggle to edit .vimrc in current window
+nnoremap <LocalLeader>, <Esc>:e $MYVIMRC<CR>
 
 " Quickly source .vimrc
 nnoremap <leader>rv :source $MYVIMRC<CR>
@@ -93,28 +99,32 @@ nnoremap <C-V> v
 vnoremap v <C-V>
 vnoremap <C-V> v
 
+" Faster incremental scrolling
+nnoremap <C-e> 5<C-e>
+nnoremap <C-y> 5<C-y>
+
 " Mappings that use third party plugins
 
-if exists(':CommandT')
+"if exists('g:command_t_loaded')
 	nnoremap <C-p> :CommandT<CR>
-endif
+"endif
 
-if exists('*DVB_Drag')
+"if exists('*DVB_Drag')
 	vmap <expr> H DVB_Drag('left')
 	vmap <expr> L DVB_Drag('right')
 	vmap <expr> J DVB_Drag('down')
 	vmap <expr> K DVB_Drag('up')
 	vmap <expr> D DVB_Duplicate()
-endif
+"endif
 
-if exists(':TagbarToggle')
+"if exists('g:loaded_tagbar')
 	nmap <F8> :TagbarToggle<CR>
 	imap <F8> :TagbarToggle<CR>
-endif
+"endif
 
-if exists(":TComment")
+"if exists("g:loaded_tcomment")
 	nnoremap # :TComment<CR>
-endif
+"endif
 
 " if exists (':NeoComplete')
 	inoremap <expr><C-g>	neocomplete#undo_completion()

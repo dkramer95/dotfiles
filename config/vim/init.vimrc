@@ -36,8 +36,8 @@ call SourceConf('mappings.vimrc')
 " Helpful toggles to quickly edit the above files
 augroup ConfToggles
 	autocmd!
-	autocmd FileType vim map <buffer> <leader>p :call EditConf('plugins.vimrc')<CR>
-	autocmd FileType vim map <buffer> <leader>f :call EditConf('myfuncs.vimrc')<CR>
-	autocmd FileType vim map <buffer> <leader>g :call EditConf('general.vimrc')<CR>
-	autocmd FileType vim map <buffer> <leader>m :call EditConf('mappings.vimrc')<CR>
+	autocmd FileType vim map <buffer> <LocalLeader>p :call EditConf('plugins.vimrc')<CR>
+	autocmd FileType vim map <buffer> <LocalLeader>f :call EditConf('myfuncs.vimrc')<CR>
+	autocmd FileType vim map <buffer> <LocalLeader>g :call EditConf('general.vimrc')<CR>
+	autocmd FileType vim map <buffer> <LocalLeader>m :call EditConf('mappings.vimrc')<CR>
 augroup END
