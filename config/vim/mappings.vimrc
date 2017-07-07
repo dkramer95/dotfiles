@@ -103,6 +103,49 @@ vnoremap <C-V> v
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 
+" Smarter and easier horizontal and vertical window resizing
+autocmd! WinEnter * call SetWinAdjust()
+function! SetWinAdjust()
+	if winnr() == winnr('$')
+		" --Left Window--
+
+		" Horizontal Remaps
+		nnoremap <C-W>> <C-W><
+		nnoremap <C-W>< <C-W>>
+
+		" Horizontal Toggle Mappings
+		nnoremap <S-Left> 5<C-W>>
+		nnoremap <S-Right> 5<C-W><
+
+		" Vertical Remaps
+		nnoremap <C-W>- <C-W>+
+		nnoremap <C-W>+ <C-W>-
+
+		" Vertical Toggle Mappings
+		nnoremap <S-Up> 5<C-W>+
+		nnoremap <S-Down> 5<C-W>-
+	else
+		" --Right Window--
+
+		" Horizontal Remaps
+		nnoremap <C-W>> <C-W>>
+		nnoremap <C-W>< <C-W><
+
+		" Horizontal Toggle Mappings
+		nnoremap <S-Left> 5<C-W><
+		nnoremap <S-Right> 5<C-W>>
+
+		" Vertical Remaps
+		nnoremap <C-W>- <C-W>-
+		nnoremap <C-W>+ <C-W>+
+
+		"Vertical Toggle Mappings
+		nnoremap <S-Up> 5<C-W>-
+		nnoremap <S-Down> 5<C-W>+
+	endif
+endfunction
+
+
 " Mappings that use third party plugins
 
 "if exists('g:command_t_loaded')
@@ -152,4 +195,14 @@ nnoremap <C-y> 5<C-y>
 if exists(':NERDTreeToggle')
 	" NERDTree config
 	nmap <F7> :NERDTreeToggle<CR>
+endif
+
+" Use xterm style keys.. This is needed for using <S-CursorKey> mappings
+" inside of tmux to work properly
+if &term =~ '^screen'
+	" tmux will send xterm-style keys when its xterm-keys option is on
+	execute "set <xUp>=\e[1;*A"
+	execute "set <xDown>=\e[1;*B"
+	execute "set <xRight>=\e[1;*C"
+	execute "set <xLeft>=\e[1;*D"
 endif
