@@ -56,6 +56,9 @@ set ruler
 " Show partial commands in status line
 set showcmd
 
+" Limit size of popup menu
+set pumheight=20
+
 " Show the status bar
 set laststatus=2
 

@@ -77,15 +77,18 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/vimshell'
 
+" Vim autocomplete
+Plug 'Shougo/neco-vim'
+
 " Lazy / deferred loaded plugins (to decrease startup time)
 
 " File explorer
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " Code completion
-Plug 'moll/vim-node', { 'for': ['javacript'] }
+Plug 'moll/vim-node', { 'for': ['javascript'] }
 Plug '1995eaton/vim-better-javascript-completion', { 'for': ['javascript']}
-Plug 'OmniSharp/omnisharp-vim', { 'for': ['javascript', 'css', 'java', 'cs'] }
+Plug 'OmniSharp/omnisharp-vim', { 'for': ['css', 'java', 'cs'] }
 Plug 'ctrlpvim/ctrlp.vim', { 'for': ['javascript', 'css', 'java', 'cs'] }
 Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java'] }
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
@@ -104,7 +107,7 @@ command! FormatJSON %!python -m json.tool
 let g:airline_theme="base16color"
 
 " Adds ascii code values to the right of airline status bar in hex and decimalj
-let g:airline_section_z = '%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__# :%3v | %03b 0x%0B'
+let g:airline_section_z = '%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__# :%3v | %03b 0x%02B'
 
 " Syntastic config
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
@@ -115,7 +118,8 @@ set statusline+=%*
 " Neosnippets config
 let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets'
 
-" Neocomplete Config
+"Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
@@ -137,22 +141,48 @@ if !exists('g:neocomplete#keyword_patterns')
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+"inoremap <expr><S-Tab>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+	return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+	" For no inserting <CR> key.
+	"return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType c setlocal omnifunc=ccomplete#Complete
 autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
 	let g:neocomplete#sources#omni#input_patterns = {}
 endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
