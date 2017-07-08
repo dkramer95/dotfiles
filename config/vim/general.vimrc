@@ -32,13 +32,17 @@ set showmode
 set cursorline
 
 " Show a column line to help guide codewrapping
-set colorcolumn=110
+let g:colorcolumnWidth=110
+let &colorcolumn=g:colorcolumnWidth
 highlight ColorColumn ctermbg=darkgray
 
 " Make searching better
 set gdefault
 set ignorecase
 set smartcase
+
+" Split vertical windows to the right
+set splitright
 
 " Find as you search
 set incsearch
@@ -118,6 +122,7 @@ set updatetime=2000
 " Remove 'Press Enter to continue' message when type information is longer than one line.
 set cmdheight=2
 
+
 " Access system clipboarod
 if (has("win32") || (has("unix") && (system("uname -s") =~ "Darwin")))
 	" Windows or MacOS
@@ -126,3 +131,18 @@ else
 	" Linux
 	set clipboard=unnamedplus
 endif
+
+" Autocommands for buffers / windows
+augroup kramer_wincmds
+	autocmd!
+
+	" Only show cursorline in active window
+	autocmd WinLeave * set nocursorline
+	autocmd WinEnter * set cursorline
+
+	" Only show colorcolumn in active window
+	if exists("&colorcolumn")
+		autocmd WinEnter * let &colorcolumn=g:colorcolumnWidth
+		autocmd WinLeave * set colorcolumn=""
+	endif
+augroup END

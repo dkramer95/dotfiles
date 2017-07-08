@@ -146,56 +146,67 @@ function! SetWinAdjust()
 endfunction
 
 
-" Mappings that use third party plugins
+" --Mappings that use third party plugins--
 
-"if exists('g:command_t_loaded')
-	nnoremap <C-p> :CommandT<CR>
-"endif
+" Ensure we only map to plugins if they have been sourced, to avoid
+" getting annoying errors about mapping to things that don't exist
+autocmd! VimEnter * call LoadPluginMappings()
 
-"if exists('*DVB_Drag')
-	vmap <expr> H DVB_Drag('left')
-	vmap <expr> L DVB_Drag('right')
-	vmap <expr> J DVB_Drag('down')
-	vmap <expr> K DVB_Drag('up')
-	vmap <expr> D DVB_Duplicate()
-"endif
+function! LoadPluginMappings()
+	" DVB_Drag
+	if exists('g:loaded_dragvirtualblocks')
+		vmap <expr> H DVB_Drag('left')
+		vmap <expr> L DVB_Drag('right')
+		vmap <expr> J DVB_Drag('down')
+		vmap <expr> K DVB_Drag('up')
+		vmap <expr> D DVB_Duplicate()
+	endif
 
-"if exists('g:loaded_tagbar')
-	nmap <F8> :TagbarToggle<CR>
-	imap <F8> :TagbarToggle<CR>
-"endif
+	" CommandT
+	if exists('g:command_t_loaded')
+		nnoremap <C-p> :CommandT<CR>
+	endif
 
-"if exists("g:loaded_tcomment")
-	nnoremap # :TComment<CR>
-"endif
+	" Tagbar
+	if exists('g:loaded_tagbar')
+		nmap <F8> :TagbarToggle<CR>
+		imap <F8> :TagbarToggle<CR>
+	endif
 
-" if exists (':NeoComplete')
-	inoremap <expr><C-g>	neocomplete#undo_completion()
-	inoremap <expr><C-l>	neocomplete#complete_common_string()
+	" TComment
+	if exists('g:loaded_tcomment')
+		nnoremap # :TComment<CR>
+	endif
 
-	" <CR>: close popup and save indent.
-	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-	function! s:my_cr_function()
-		return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-	endfunction
-	" <TAB>: completion.
-	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-	" <C-h>, <BS>: close popup and delete backword char.
-	inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-	inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+	" NeoComplete
+	if exists ('g:loaded_neocomplete')
+		inoremap <expr><C-g>	neocomplete#undo_completion()
+		inoremap <expr><C-l>	neocomplete#complete_common_string()
 
-	" Snippet config
-	" Plugin key-mappings.
-	" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-	imap <C-k> <Plug>(neosnippet_expand_or_jump)
-	smap <C-k> <Plug>(neosnippet_expand_or_jump)
-	xmap <C-k> <Plug>(neosnippet_expand_target)
-" endif
+		" <CR>: close popup and save indent.
+		inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+		function! s:my_cr_function()
+			return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+		endfunction
+		" <TAB>: completion.
+		inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+		" <C-h>, <BS>: close popup and delete backword char.
+		inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+		inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
-if exists(':NERDTreeToggle')
-	" NERDTree config
-	nmap <F7> :NERDTreeToggle<CR>
-endif
+		" Snippet config
+		" Plugin key-mappings.
+		" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+		imap <C-k> <Plug>(neosnippet_expand_or_jump)
+		smap <C-k> <Plug>(neosnippet_expand_or_jump)
+		xmap <C-k> <Plug>(neosnippet_expand_target)
+	endif
+
+	" NERDTree
+	if exists(':NERDTreeToggle')
+		nmap <F7> :NERDTreeToggle<CR>
+	endif
+endfunction
 
 " Use xterm style keys.. This is needed for using <S-CursorKey> mappings
 " inside of tmux to work properly
