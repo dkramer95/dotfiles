@@ -31,6 +31,7 @@ call SourceConf('general.vimrc')
 call SourceConf('mappings.vimrc')
 
 " Add any additional .vimrc confs below
+call SourceConf('style.vimrc')
 
 
 " Helpful toggles to quickly edit the above files
@@ -40,4 +41,5 @@ augroup ConfToggles
 	autocmd FileType vim map <buffer> <LocalLeader>f :call EditConf('myfuncs.vimrc')<CR>
 	autocmd FileType vim map <buffer> <LocalLeader>g :call EditConf('general.vimrc')<CR>
 	autocmd FileType vim map <buffer> <LocalLeader>m :call EditConf('mappings.vimrc')<CR>
+	autocmd FileType vim map <buffer> <LocalLeader>s :call EditConf('style.vimrc')<CR>
 augroup END

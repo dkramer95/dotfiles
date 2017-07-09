@@ -103,11 +103,9 @@ command! FormatJSON %!python -m json.tool
 
 " Plugin Configurations
 
-" Airline theme config
-let g:airline_theme="base16color"
+" Command-T config
+let g:CommandTMaxFiles = 50000
 
-" Adds ascii code values to the right of airline status bar in hex and decimalj
-let g:airline_section_z = '%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__# :%3v | %03b 0x%02B'
 
 " Syntastic config
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
