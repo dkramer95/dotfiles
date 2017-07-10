@@ -77,6 +77,9 @@ set showmatch
 " Indent at same position as the previous line
 set autoindent
 
+" Encoding
+set encoding=utf8
+
 " Show hidden whitespace chars
 set listchars=tab:>-,eol:¬,trail:␠
 set list
@@ -89,9 +92,6 @@ set tabstop=4
 
 " Use tabs NOT spaces
 set noexpandtab
-
-" Encoding
-set encoding=utf8
 
 " Stronger encryption
 setlocal cm=blowfish2
