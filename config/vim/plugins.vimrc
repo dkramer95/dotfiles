@@ -103,6 +103,9 @@ command! FormatJSON %!python -m json.tool
 
 " Plugin Configurations
 
+" Airline config
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
+
 " Command-T config
 let g:CommandTMaxFiles = 50000
 

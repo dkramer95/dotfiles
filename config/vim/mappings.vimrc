@@ -81,6 +81,12 @@ nnoremap <F12> <Esc>:tabnew $MYVIMRC<CR>
 " Additional fast toggle to edit .vimrc in current window
 nnoremap <LocalLeader>, <Esc>:e $MYVIMRC<CR>
 
+" Toggle between relative / normal line numbers
+nnoremap <LocalLeader>r <Esc>:set rnu!<CR>
+
+" Fit to specified text width pneumonic -- fit width
+nnoremap fw gqgq
+
 " Quickly source .vimrc
 nnoremap <leader>rv :source $MYVIMRC<CR>
 
@@ -168,7 +174,7 @@ function! LoadPluginMappings()
 	endif
 
 	" Tagbar
-	if exists('g:loaded_tagbar')
+	if exists('g:loaded_tagbar') || exists(':TagbarToggle')
 		nmap <F8> :TagbarToggle<CR>
 		imap <F8> :TagbarToggle<CR>
 	endif
