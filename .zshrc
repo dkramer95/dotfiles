@@ -4,7 +4,7 @@
 export ZSH=$HOME/.oh-my-zsh
 
 # Visual theme
-ZSH_THEME="half-life"
+ZSH_THEME="steeef"
 
 # Plugins
 plugins=(battery git vi-mode jsontools)
@@ -46,9 +46,13 @@ bindkey kj vi-cmd-mode
 # Fix <Shift><Tab> not working for going back
 bindkey '^[[Z' reverse-menu-complete
 
+zle_highlight=( default:fg=white  )
+
 # Load directory colors
 [ -e $HOME/.dircolors  ] && eval $(dircolors -b $HOME/.dircolors) || eval $(dircolors -b)
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+export PS1='%{$purple%}%n${PR_RST} in %{$limegreen%}%~${PR_RST} $vcs_info_msg_0_$(virtualenv_info)
+%{$orange%}λ %{$reset_color%}%'
 
 # Start up with tmux
 tmux
