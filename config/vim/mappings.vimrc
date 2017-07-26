@@ -62,7 +62,10 @@ nnoremap <Tab> :bprevious<CR>:redraw<CR>:ls<CR>
 nnoremap <S-Tab> :bnext<CR>:redraw<CR>:ls<CR>
 
 " Show the path of the current file
-nnoremap <LocalLeader>p :echo expand('%')<CR>
+nnoremap <leader>p :echo expand('%')<CR>
+
+" Show only the current window
+nnoremap <leader>o :only<CR>
 
 " Toggle between showing whitespace chars
 nnoremap <LocalLeader>l :set list!<CR>
@@ -83,6 +86,9 @@ nnoremap <LocalLeader>, <Esc>:e $MYVIMRC<CR>
 
 " Toggle between relative / normal line numbers
 nnoremap <LocalLeader>r <Esc>:set rnu!<CR>
+
+" Edit file, starting in the same directory as current file
+nnoremap <LocalLeader>e :edit <C-R>=expand('%:p:h') . '/'<CR>
 
 " Fit to specified text width pneumonic -- fit width
 nnoremap fw gqgq

@@ -77,8 +77,14 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/vimshell'
 
+" More contextually aware snippet suggestions
+Plug 'Shougo/context_filetype.vim'
+
 " Vim autocomplete
 Plug 'Shougo/neco-vim'
+
+" Pug syntax plugin
+Plug 'digitaltoad/vim-pug'
 
 " Lazy / deferred loaded plugins (to decrease startup time)
 
