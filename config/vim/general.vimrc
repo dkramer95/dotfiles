@@ -149,3 +149,9 @@ augroup kramer_wincmds
 		autocmd WinLeave * set colorcolumn=""
 	endif
 augroup END
+
+" Allow per project vimrc configs
+set exrc
+
+" Disable unsafe commands
+set secure
