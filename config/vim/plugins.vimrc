@@ -77,6 +77,9 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/vimshell'
 
+" OpenGL Syntax
+Plug 'tikhomirov/vim-glsl'
+
 " More contextually aware snippet suggestions
 Plug 'Shougo/context_filetype.vim'
 
