@@ -1,0 +1,5 @@
+# Add aliases for specific applications that may differ between different platforms
+# Tracking:
+# To ignore changes to this file use 'git update-index --assume-unchanged FILE_NAME'
+# To track changes to this file use 'git update-index --no-assume-unchanged FILE_NAME'
+
