@@ -56,6 +56,7 @@ nnoremap <leader>ss :setlocal spell!<CR>
 nnoremap <leader>q :quit<CR>
 nnoremap <leader>qq :quit!<CR>
 nnoremap <leader>qa :qa<CR>
+nnoremap <leader>qaa :qa!<CR>
 
 set shortmess=a
 nnoremap <Tab> :bprevious<CR>:redraw<CR>:ls<CR>
