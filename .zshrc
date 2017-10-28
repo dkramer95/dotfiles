@@ -22,6 +22,11 @@ if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
 fi
 
+# Source non-standard machine specific app aliases
+if [ -f ~/.app_aliases ]; then
+	. ~/.app_aliases
+fi
+
 # enable vim mode on command line
 # bindkey -v
 function zle-line-init zle-keymap-select {
