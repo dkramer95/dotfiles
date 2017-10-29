@@ -175,6 +175,9 @@ endif
 " Make a buffer modifiable
 nnoremap <LocalLeader>m :set modifiable<CR>
 
+" Delete all text in buffer
+nnoremap da Gdgg
+
 " Smarter and easier horizontal and vertical window resizing
 autocmd! WinEnter * call SetWinAdjust()
 function! SetWinAdjust()
