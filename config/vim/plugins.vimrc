@@ -20,7 +20,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'tpope/vim-surround'
 
 " Class/Function Outline Viewer
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', { 'for': ['javascript', 'css', 'java', 'cs', 'cpp', 'c', 'python'] }
 
 " Show git status in the gutter
 Plug 'airblade/vim-gitgutter'
@@ -29,7 +29,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 " Syntax checking
-Plug 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic', { 'for': ['javascript', 'css', 'java', 'cs', 'cpp', 'c', 'html', 'python'] }
 
 " Fix swap file prompts
 Plug 'gioele/vim-autoswap'
