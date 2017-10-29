@@ -97,13 +97,38 @@ nnoremap fw GVgggq
 " Quickly source .vimrc
 nnoremap <leader>rv :source $MYVIMRC<CR>
 
-" Yank the current char at the cursor to clipboard
+" Determine proper clipboard to yank to
 if (&clipboard == "unnamedplus")
-	nnoremap <silent>yc :let @+ = CharAtCursor()<CR>
+	let g:clipboardRegister = "@0"
 elseif (&clipboard == "unnamed")
-	nnoremap <silent>yc :let @* = CharAtCursor()<CR>
+	let g:clipboardRegister = "@*"
 endif
 
+" Yank current char under cursor to the clipboard
+function! YankChar()
+	let cmd = ":let " . g:clipboardRegister . "= CharAtCursor()"
+	execute(cmd)
+endfunction
+
+" Function to yank everything to the clipboard
+function! YankAll()
+	" Position to come back to after this completes
+	let mark = "z"
+
+	" Remove "@" to just get the value
+	let reg = strpart(g:clipboardRegister, 1, 1)
+
+	" Set a mark. Go all the way to bottom. Yank into register all the way to
+	" top. Go back to mark.
+	let keys = "m" . mark . "G\"" . reg . "ygg'" . mark
+	silent call feedkeys(keys)
+	echo "Buffer contents yanked to clipboard!"
+endfunction
+
+nnoremap <silent>yc :call YankChar()<CR>
+
+" Yank all contents to clipboard
+nnoremap ya :call YankAll()<CR>
 
 " Always use visual block mode
 nnoremap v <C-V>
@@ -115,6 +140,40 @@ vnoremap <C-V> v
 " Faster incremental scrolling
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
+
+" Better terminal mode mappings
+if has('terminal')
+	function! TerminalInsert()
+		" Ensure this is only for a terminal type buffer
+		if (&buftype == "terminal")
+			normal i
+		endif
+	endfunction
+
+	" Creates a terminal split to the right
+	function! CreateSplitTerminal()
+		:term
+
+		" Hacky work around to fix <CR> key not working when creating
+		" a terminal and moving it w/ feedkeys instead of actually typing
+		call feedkeys("\<C-w>L\<CR>")
+		call term_wait(bufnr("%"), 1)
+		" Min sleep time that makes this hack work
+		sleep 400m
+		" Don't run tmux within vim
+		call feedkeys("exit\<CR>")
+	endfunction
+
+	" Easier escape to terminal normal mode
+	tnoremap <C-w>kj <C-W>N
+
+	" Easier way to go back into terminal insert mode
+	nnoremap <silent> <CR> :call TerminalInsert()<CR>
+	nnoremap <LocalLeader>t :call CreateSplitTerminal()<CR>
+endif
+
+" Make a buffer modifiable
+nnoremap <LocalLeader>m :set modifiable<CR>
 
 " Smarter and easier horizontal and vertical window resizing
 autocmd! WinEnter * call SetWinAdjust()
