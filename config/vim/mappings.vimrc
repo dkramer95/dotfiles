@@ -251,6 +251,8 @@ function! LoadPluginMappings()
 	" TComment
 	if exists('g:loaded_tcomment')
 		nnoremap # :TComment<CR>
+		" Use # to toggle comments in visual selection
+		xmap # gc
 	endif
 
 	" NeoComplete
@@ -265,6 +267,7 @@ function! LoadPluginMappings()
 		endfunction
 		" <TAB>: completion.
 		inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+		inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 		" <C-h>, <BS>: close popup and delete backword char.
 		inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 		inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
