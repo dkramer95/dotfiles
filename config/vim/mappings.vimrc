@@ -97,6 +97,9 @@ nnoremap fw GVgggq
 " Quickly source .vimrc
 nnoremap <leader>rv :source $MYVIMRC<CR>
 
+" Source current file without having to press '%'
+nnoremap <leader>5 :source %<CR>
+
 " Determine proper clipboard to yank to
 if (&clipboard == "unnamedplus")
 	let g:clipboardRegister = "@0"
@@ -283,6 +286,11 @@ function! LoadPluginMappings()
 	" NERDTree
 	if exists(':NERDTreeToggle')
 		nmap <F7> :NERDTreeToggle<CR>
+	endif
+
+	" KSwitcher plugin
+	if exists ('g:loaded_kswitch')
+		nnoremap <F9> :DisplayBufferList()<CR>
 	endif
 endfunction
 

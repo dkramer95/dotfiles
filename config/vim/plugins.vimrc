@@ -65,6 +65,9 @@ Plug 'christoomey/vim-tmux-navigator'
 " Async build / test dispatcher (required with omnisharp)
 Plug 'tpope/vim-dispatch'
 
+" Buffer switching plugin
+Plug 'googie109/KSwitcher'
+
 
 " Autocompletion
 if (has('lua'))

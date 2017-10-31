@@ -155,3 +155,9 @@ set exrc
 
 " Disable unsafe commands
 set secure
+
+" Command Abbreviations
+cabbrev ca call
+cabbrev so source
+cabbrev ec echo
+cabbrev dc debug call
