@@ -66,7 +66,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-dispatch'
 
 " Buffer switching plugin
-Plug 'googie109/KSwitcher'
+Plug 'googie109/KSwitch'
 
 
 " Autocompletion

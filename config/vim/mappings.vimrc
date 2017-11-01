@@ -287,11 +287,6 @@ function! LoadPluginMappings()
 	if exists(':NERDTreeToggle')
 		nmap <F7> :NERDTreeToggle<CR>
 	endif
-
-	" KSwitcher plugin
-	if exists ('g:loaded_kswitch')
-		nnoremap <F9> :DisplayBufferList()<CR>
-	endif
 endfunction
 
 " Use xterm style keys.. This is needed for using <S-CursorKey> mappings
