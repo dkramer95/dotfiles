@@ -181,6 +181,9 @@ nnoremap <LocalLeader>m :set modifiable<CR>
 " Delete all text in buffer
 nnoremap da Gdgg
 
+" Visually select all text in buffer
+nnoremap va GVgg
+
 " Smarter and easier horizontal and vertical window resizing
 autocmd! WinEnter * call SetWinAdjust()
 function! SetWinAdjust()
