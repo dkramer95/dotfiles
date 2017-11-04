@@ -6,6 +6,18 @@ endfunc
 "Double-delete to remove trailing whitespace...
 nmap <silent> <BS><BS> :call TrimTrailingWS()<CR>
 
+" Clears out all values in user accessible registers
+func! ClearRegisters()
+	let regs = split('abcdefghijklmnopqrstuvwxyz0123456789', '\zs')
+
+	for r in regs
+		call setreg(r, [])
+	endfor
+endfunc
+
+" Make a system command to clear registers
+command! ClearReg :call ClearRegisters()
+
 func! TrimTrailingWS()
 	if search('\s\+$', 'cnw')
 		:%s/\s\+$//g

@@ -104,6 +104,11 @@ nnoremap <leader>5 :source %<CR>
 nnoremap ' "
 nnoremap " '
 
+" Stop the annoying accidental macro recording when quitting
+nnoremap Q q
+nnoremap q <nop>
+
+
 " Yank current char under cursor to the clipboard or custom register
 func! YankChar()
 	let cmd = ":let @" . v:register . " = CharAtCursor()"
