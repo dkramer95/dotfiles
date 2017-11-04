@@ -9,14 +9,14 @@ filetype on
 let s:configDir = "~/dotfiles/config/vim"
 
 " Sources the specified file
-function! SourceConf(name)
+func! SourceConf(name)
 	execute "source " . s:configDir . "/" . a:name
-endfunction
+endfunc
 
 " Opens the specified file
-function! EditConf(name)
+func! EditConf(name)
 	execute "edit " . s:configDir ."/" . a:name
-endfunction
+endfunc
 
 " Load third party plugins
 call SourceConf('plugins.vimrc')

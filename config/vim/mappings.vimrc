@@ -101,11 +101,11 @@ nnoremap <leader>rv :source $MYVIMRC<CR>
 nnoremap <leader>5 :source %<CR>
 
 " Yank current char under cursor to the clipboard or custom register
-function! YankChar()
+func! YankChar()
 	let cmd = ":let @" . v:register . " = CharAtCursor()"
 	echo cmd
 	execute(cmd)
-endfunction
+endfunc
 
 " Enables custom keymappings that involve {lhs} and {rhs} to use a custom
 " register. If specified, the custom register will be used, otherwise the
@@ -121,7 +121,7 @@ func! RegCmd(lhs, rhs)
 endfunc
 
 " Function to yank everything to clipboard or custom register
-function! YankAll()
+func! YankAll()
 	" Set a mark so we can return to where we were
 	let mark = "z"
 	let lhs = "m" . mark . "G"
@@ -129,7 +129,7 @@ function! YankAll()
 	let reg = RegCmd(lhs, rhs)
 
 	echo "Buffer contents yanked to \"" . reg
-endfunction
+endfunc
 
 " Yank single char to clipboard -- can use custom register
 nnoremap <silent>yc :call YankChar()<CR>
@@ -150,15 +150,15 @@ nnoremap <C-y> 5<C-y>
 
 " Better terminal mode mappings
 if has('terminal')
-	function! TerminalInsert()
+	func! TerminalInsert()
 		" Ensure this is only for a terminal type buffer
 		if (&buftype == "terminal")
 			normal i
 		endif
-	endfunction
+	endfunc
 
 	" Creates a terminal split to the right
-	function! CreateSplitTerminal()
+	func! CreateSplitTerminal()
 		:term
 
 		" Hacky work around to fix <CR> key not working when creating
@@ -169,7 +169,7 @@ if has('terminal')
 		sleep 400m
 		" Don't run tmux within vim
 		call feedkeys("exit\<CR>")
-	endfunction
+	endfunc
 
 	" Easier escape to terminal normal mode
 	tnoremap <C-w>kj <C-W>N
@@ -190,7 +190,7 @@ nnoremap va GVgg
 
 " Smarter and easier horizontal and vertical window resizing
 autocmd! WinEnter * call SetWinAdjust()
-function! SetWinAdjust()
+func! SetWinAdjust()
 	if winnr() == winnr('$')
 		" --Left Window--
 
@@ -228,7 +228,7 @@ function! SetWinAdjust()
 		nnoremap <S-Up> 5<C-W>-
 		nnoremap <S-Down> 5<C-W>+
 	endif
-endfunction
+endfunc
 
 
 " --Mappings that use third party plugins--
@@ -237,7 +237,7 @@ endfunction
 " getting annoying errors about mapping to things that don't exist
 autocmd! VimEnter * call LoadPluginMappings()
 
-function! LoadPluginMappings()
+func! LoadPluginMappings()
 	" DVB_Drag
 	if exists('g:loaded_dragvirtualblocks')
 		vmap <expr> H DVB_Drag('left')
@@ -272,9 +272,9 @@ function! LoadPluginMappings()
 
 		" <CR>: close popup and save indent.
 		inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-		function! s:my_cr_function()
+		func! s:my_cr_function()
 			return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-		endfunction
+		endfunc
 		" <TAB>: completion.
 		inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 		inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
@@ -294,7 +294,7 @@ function! LoadPluginMappings()
 	if exists(':NERDTreeToggle')
 		nmap <F7> :NERDTreeToggle<CR>
 	endif
-endfunction
+endfunc
 
 " Use xterm style keys.. This is needed for using <S-CursorKey> mappings
 " inside of tmux to work properly

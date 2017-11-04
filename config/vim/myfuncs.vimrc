@@ -1,28 +1,28 @@
-function! SourceFile()
+func! SourceFile()
 	:w!
 	:source %
-endfunction
+endfunc
 
 "Double-delete to remove trailing whitespace...
 nmap <silent> <BS><BS> :call TrimTrailingWS()<CR>
 
-function! TrimTrailingWS()
+func! TrimTrailingWS()
 	if search('\s\+$', 'cnw')
 		:%s/\s\+$//g
 	endif
 	echo "Trim trailing backspace"
-endfunction
+endfunc
 
-function! CharAtCursor()
+func! CharAtCursor()
 	let char = matchstr(getline('.'), '\%' . col('.') .'c.')
 	" echo char
 	return char
-endfunction
+endfunc
 
-function! GoToTab(index)
+func! GoToTab(index)
 	tabfirst
 	execute "normal" . a:index . "gt"
-endfunction
+endfunc
 
 nnoremap g1 <Esc>: call GoToTab(1)<CR>
 nnoremap g2 <Esc>: call GoToTab(2)<CR>
@@ -34,13 +34,13 @@ nnoremap g7 <Esc>: call GoToTab(7)<CR>
 nnoremap g8 <Esc>: call GoToTab(8)<CR>
 nnoremap g9 <Esc>: call GoToTab(9)<CR>
 
-function! TitleCaseLine()
+func! TitleCaseLine()
 	normal 0
 	while (col(".") >= col("$") - 1)
 		normal vUw
 	endwhile
 	echo "TitleCasedLine!"
-endfunction
+endfunc
 
 nmap tc <Esc>:call TitleCaseLine()<CR>
 
@@ -48,7 +48,7 @@ nmap tc <Esc>:call TitleCaseLine()<CR>
 " Just for FUN function that will take whatever text is in the
 " current buffer, and create a new separate bufferand animate
 " all the text out, with the specified draw speed variable
-function! AnimateText(speed)
+func! AnimateText(speed)
 	"Yank text in current buffer into register @c
 	normal GVgg"cyy
 
@@ -94,16 +94,16 @@ function! AnimateText(speed)
 
 	"Clean up contents
 	execute ":bdelete! " . tempBufName
-endfunction
+endfunc
 
-function! SetGUIFont(name, size)
+func! SetGUIFont(name, size)
 	exec "set gfn=" . a:name . ":h" . a:size
-endfunction
+endfunc
 
 " Go in and out Commodore 64 Mode! :)
 let s:inC64Mode = 0
 
-function! C64Mode()
+func! C64Mode()
 	if !exists("b:original_colorscheme")
 		let b:original_colorscheme = execute('colorscheme')
 	endif
@@ -129,6 +129,6 @@ function! C64Mode()
 	endif
 	AirlineToggle
 	redraw
-endfunction
+endfunc
 
 nnoremap <F6> :call C64Mode()<CR>
