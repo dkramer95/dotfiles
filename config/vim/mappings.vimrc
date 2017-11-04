@@ -100,6 +100,10 @@ nnoremap <leader>rv :source $MYVIMRC<CR>
 " Source current file without having to press '%'
 nnoremap <leader>5 :source %<CR>
 
+" Swap mark and register bindings
+nnoremap ' "
+nnoremap " '
+
 " Yank current char under cursor to the clipboard or custom register
 func! YankChar()
 	let cmd = ":let @" . v:register . " = CharAtCursor()"
@@ -116,7 +120,7 @@ func! RegCmd(lhs, rhs)
 		" Not using default register
 		let reg = "\"" . v:register
 	endif
-	call feedkeys(a:lhs . reg . a:rhs)
+	call feedkeys(a:lhs . reg . a:rhs, 'n')
 	return reg
 endfunc
 
