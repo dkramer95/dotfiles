@@ -11,8 +11,8 @@ let maplocalleader = ","
 inoremap kj <Esc>
 cnoremap kj <Esc>
 
-" Yank to end of line
-nnoremap Y y$
+" Yank to end of line -- can use custom register
+nnoremap Y :call RegCmd("", "y$")<CR>
 
 " Create and move between tabs more easily
 nnoremap tt <Esc>:tabnew<CR>
@@ -100,37 +100,41 @@ nnoremap <leader>rv :source $MYVIMRC<CR>
 " Source current file without having to press '%'
 nnoremap <leader>5 :source %<CR>
 
-" Determine proper clipboard to yank to
-if (&clipboard == "unnamedplus")
-	let g:clipboardRegister = "@0"
-elseif (&clipboard == "unnamed")
-	let g:clipboardRegister = "@*"
-endif
-
-" Yank current char under cursor to the clipboard
+" Yank current char under cursor to the clipboard or custom register
 function! YankChar()
-	let cmd = ":let " . g:clipboardRegister . "= CharAtCursor()"
+	let cmd = ":let @" . v:register . " = CharAtCursor()"
+	echo cmd
 	execute(cmd)
 endfunction
 
-" Function to yank everything to the clipboard
+" Enables custom keymappings that involve {lhs} and {rhs} to use a custom
+" register. If specified, the custom register will be used, otherwise the
+" default register will be used like normal.
+func! RegCmd(lhs, rhs)
+	let reg = ""
+	if (v:register != "\"")
+		" Not using default register
+		let reg = "\"" . v:register
+	endif
+	call feedkeys(a:lhs . reg . a:rhs)
+	return reg
+endfunc
+
+" Function to yank everything to clipboard or custom register
 function! YankAll()
-	" Position to come back to after this completes
+	" Set a mark so we can return to where we were
 	let mark = "z"
+	let lhs = "m" . mark . "G"
+	let rhs = "yy'" . mark
+	let reg = RegCmd(lhs, rhs)
 
-	" Remove "@" to just get the value
-	let reg = strpart(g:clipboardRegister, 1, 1)
-
-	" Set a mark. Go all the way to bottom. Yank into register all the way to
-	" top. Go back to mark.
-	let keys = "m" . mark . "G\"" . reg . "ygg'" . mark
-	silent call feedkeys(keys)
-	echo "Buffer contents yanked to clipboard!"
+	echo "Buffer contents yanked to \"" . reg
 endfunction
 
+" Yank single char to clipboard -- can use custom register
 nnoremap <silent>yc :call YankChar()<CR>
 
-" Yank all contents to clipboard
+" Yank all contents to clipboard -- can use custom register
 nnoremap ya :call YankAll()<CR>
 
 " Always use visual block mode
@@ -178,8 +182,8 @@ endif
 " Make a buffer modifiable
 nnoremap <LocalLeader>m :set modifiable<CR>
 
-" Delete all text in buffer
-nnoremap da Gdgg
+" Delete all text in buffer -- can use custom register
+nnoremap <silent> da :call RegCmd("G", "dgg")<CR>
 
 " Visually select all text in buffer
 nnoremap va GVgg
