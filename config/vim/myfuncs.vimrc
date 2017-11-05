@@ -62,50 +62,56 @@ nmap tc <Esc>:call TitleCaseLine()<CR>
 " all the text out, with the specified draw speed variable
 func! AnimateText(speed)
 	"Yank text in current buffer into register @c
-	normal GVgg"cyy
+	normal! GVgg"cyy
 
-	"Create new buffer to contain yanked text from register @c
-	let tempBufName = "animation"
-	execute ":new " . tempBufName
-	execute ":b " 	. tempBufName
-	execute ":setlocal noswapfile"
-	execute ":setlocal buftype=nowrite"
+	try
+		"Create new buffer to contain yanked text from register @c
+		let tempBufName = "animation"
 
-	"Convert text to uppercase
-	if (s:inC64Mode == 1)
-		let yankedText = toupper(@c)
-	else
-		let yankedText = @c
-	endif
-	let textLength = strlen(yankedText)
+		execute ":new " . tempBufName .
+					\" | set syntax=" . &syntax .
+					\" | b " . tempBufName .
+					\" | setlocal noswapfile
+					\  | setlocal buftype=nowrite"
 
-	let j = 0
-	redraw
-
-	"Draw each char, one at a time
-	while (j < textLength)
-		let char = strpart(yankedText, j, 1)
-		let lineNum = getcurpos()[1]
-		execute "sleep" . a:speed . "m"
-
-		"Check to see if char is new line
-		if (char == '$')
-			let lineNum += 1
-			normal o
+		"Convert text to uppercase
+		if (s:inC64Mode == 1)
+			let yankedText = toupper(@c)
 		else
-			let @d = char
-			normal yy"dp
+			let yankedText = @c
 		endif
+		let textLength = strlen(yankedText)
 
+		let j = 0
 		redraw
-		let j += 1
-	endwhile
 
-	"Show for a while
-	sleep 5000m
+		"Draw each char, one at a time
+		while (j < textLength)
+			let char = strpart(yankedText, j, 1)
+			let lineNum = getcurpos()[1]
+			execute "sleep" . a:speed . "m"
 
-	"Clean up contents
-	execute ":bdelete! " . tempBufName
+			"Check to see if char is new line
+			if (char == '$')
+				let lineNum += 1
+				normal! o
+			else
+				let @d = char
+				normal! yy"dp
+			endif
+
+			redraw
+			let j += 1
+		endwhile
+
+		"Show for a while
+		sleep 5000m
+	catch /^Vim:Interrupt$/
+		echo "Animation Caught Interrupt"
+	finally
+		"Ensure we always clean up contents
+		execute ":bdelete! " . tempBufName
+	endtry
 endfunc
 
 func! SetGUIFont(name, size)
