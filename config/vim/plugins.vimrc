@@ -98,6 +98,7 @@ Plug 'digitaltoad/vim-pug'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " Code completion
+Plug 'prurigro/vim-markdown-concealed'
 Plug 'moll/vim-node', { 'for': ['javascript'] }
 Plug '1995eaton/vim-better-javascript-completion', { 'for': ['javascript']}
 Plug 'OmniSharp/omnisharp-vim', { 'for': ['css', 'java', 'cs'] }
