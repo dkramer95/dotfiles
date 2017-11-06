@@ -31,21 +31,6 @@ func! CharAtCursor()
 	return char
 endfunc
 
-func! GoToTab(index)
-	tabfirst
-	execute "normal" . a:index . "gt"
-endfunc
-
-nnoremap g1 <Esc>: call GoToTab(1)<CR>
-nnoremap g2 <Esc>: call GoToTab(2)<CR>
-nnoremap g3 <Esc>: call GoToTab(3)<CR>
-nnoremap g4 <Esc>: call GoToTab(4)<CR>
-nnoremap g5 <Esc>: call GoToTab(5)<CR>
-nnoremap g6 <Esc>: call GoToTab(6)<CR>
-nnoremap g7 <Esc>: call GoToTab(7)<CR>
-nnoremap g8 <Esc>: call GoToTab(8)<CR>
-nnoremap g9 <Esc>: call GoToTab(9)<CR>
-
 func! TitleCaseLine()
 	normal 0
 	while (col(".") >= col("$") - 1)

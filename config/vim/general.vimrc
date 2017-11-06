@@ -173,3 +173,7 @@ cabbrev ca call
 cabbrev so source
 cabbrev ec echo
 cabbrev dc debug call
+cabbrev nno nnoremap
+cabbrev ino inoremap
+cabbrev cno cnoremap
+cabbrev vno vnoremap

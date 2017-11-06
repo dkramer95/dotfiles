@@ -34,6 +34,11 @@ nmap g$ t$
 " Move current window to tab
 nnoremap mt <C-w>T
 
+" Access tabs w/ g {1-9}
+for j in range(1, 9)
+	execute "nnoremap <silent>g" . j ":tabfirst<CR>" . j . "gt"
+endfor
+
 " Disable search match highlights
 map nh <Esc>:nohl<CR>
 
