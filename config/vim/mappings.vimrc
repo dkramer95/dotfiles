@@ -11,6 +11,10 @@ let maplocalleader = ","
 inoremap kj <Esc>
 cnoremap kj <Esc>
 
+" Stop using cursor keys in cmd mode
+cnoremap kk <up>
+cnoremap jj <down>
+
 " Yank to end of line -- can use custom register
 nnoremap Y :call RegCmd("", "y$")<CR>
 
