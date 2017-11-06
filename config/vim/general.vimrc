@@ -135,19 +135,31 @@ else
 	set clipboard=unnamedplus
 endif
 
-" Autocommands for buffers / windows
-augroup kramer_wincmds
-	autocmd!
-
-	" Only show cursorline in active window
-	autocmd WinLeave * set nocursorline
-	autocmd WinEnter * set cursorline
-
-	" Only show colorcolumn in active window
+" Reduce visibility of inactive window
+func! OnBufLeave()
+	execute "setlocal syntax=0 | setlocal nonu | setlocal nornu"
+	set nocursorline
 	if exists("&colorcolumn")
-		autocmd WinEnter * let &colorcolumn=g:colorcolumnWidth
-		autocmd WinLeave * set colorcolumn=""
+		set colorcolumn=""
 	endif
+endfunc
+
+" Increase visibility of active window
+func! OnBufEnter()
+	if !exists("b:syntax")
+		let b:syntax = &syntax
+	endif
+	if exists("&colorcolumn")
+		let &colorcolumn=g:colorcolumnWidth
+	endif
+	execute "setlocal syntax=" . b:syntax . " | setlocal rnu"
+	set cursorline
+endfunc
+
+augroup KWinCmds
+	autocmd!
+	autocmd BufLeave,WinLeave * call OnBufLeave()
+	autocmd BufEnter,WinEnter * call OnBufEnter()
 augroup END
 
 " Allow per project vimrc configs
