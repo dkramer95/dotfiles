@@ -135,6 +135,27 @@ else
 	set clipboard=unnamedplus
 endif
 
+" GUI specific tweaks
+if (has("gui_running"))
+	" Hide GUI tab bar
+	set guioptions -=e
+
+	" Hide GUI Toolbar
+	set guioptions -=T
+
+	" Remove GUI right-hand scrollbar
+	set guioptions -=r
+
+	" Remove GUI left-hand scrollbar
+	set guioptions -=l
+
+	" Remove Nerdtree scrollbar
+	set guioptions -=L
+
+	" Disable cursor blinking
+	set guicursor+=a:blinkon0
+endif
+
 " Reduce visibility of inactive window
 func! OnBufLeave()
 	execute "setlocal syntax=0 | setlocal nonu | setlocal nornu"
