@@ -22,6 +22,9 @@ set formatoptions+=j
 " Syntax highlighting
 syntax on
 
+" Improve syntax redrawing
+syntax sync maxlines=350
+
 " Hide mouse cursor while typing
 set mousehide
 
@@ -194,7 +197,14 @@ cabbrev ca call
 cabbrev so source
 cabbrev ec echo
 cabbrev dc debug call
+
+" Mapping abbreviations
 cabbrev nno nnoremap
 cabbrev ino inoremap
 cabbrev cno cnoremap
 cabbrev vno vnoremap
+
+" Diff abbreviations
+cabbrev ds diffsplit
+cabbrev vd vertical diffsplit
+cabbrev nod diffoff
