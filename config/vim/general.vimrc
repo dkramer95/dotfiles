@@ -164,8 +164,16 @@ func! OnBufLeave()
 	execute "setlocal syntax=0 | setlocal nonu | setlocal nornu"
 	set nocursorline
 	if exists("&colorcolumn")
-		set colorcolumn=""
+		let width = winwidth(winnr("$"))
+		let cols = ""
+		for j in range(1, width)
+			let cols = cols .j . ","
+		endfor
+		" remove trailing comma
+		let cols = strpart(cols, 0, strlen(cols) - 1)
+		let &colorcolumn="" . cols
 	endif
+	redraw
 endfunc
 
 " Increase visibility of active window
