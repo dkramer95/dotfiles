@@ -164,7 +164,7 @@ func! OnBufLeave()
 	execute "setlocal syntax=0 | setlocal nonu | setlocal nornu"
 	set nocursorline
 	if exists("&colorcolumn")
-		let width = winwidth(winnr("$"))
+		let width = winwidth(winnr())
 		let cols = ""
 		for j in range(1, width)
 			let cols = cols .j . ","
@@ -190,7 +190,7 @@ endfunc
 
 augroup KWinCmds
 	autocmd!
-	autocmd BufLeave,WinLeave * call OnBufLeave()
+	autocmd WinLeave * call OnBufLeave()
 	autocmd BufEnter,WinEnter * call OnBufEnter()
 augroup END
 
