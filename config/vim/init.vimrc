@@ -119,7 +119,7 @@ let s:enabledPattern  = "\\['[a-z]\\+',\\s\\+'[a-z]',\\s\\+[1]],"
 let s:disabledPattern = "\\['[a-z]\\+',\\s\\+'[a-z]',\\s\\+[0]],"
 
 highlight ModEnabled ctermfg=148 cterm=bold
-highlight ModDisabled ctermbg=205 ctermfg=0 cterm=bold
+highlight ModDisabled ctermbg=160 ctermfg=255 cterm=bold
 
 call matchadd("ModEnabled",  s:enabledPattern)
 call matchadd("ModDisabled", s:disabledPattern)
