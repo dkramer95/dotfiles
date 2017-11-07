@@ -11,8 +11,18 @@ let s:configDir = "~/dotfiles/config/vim"
 " Specify prefix key to use before module mapping
 let s:mPrefix = "<LocalLeader>"
 
-"-------------------------------------
+"------------------------------------------------------------------------------
 " ['mod_name', 'mapping', 'enabled']
+"
+" * When cursor positioned in list, several shortcuts are available:
+" {mapping} - Description
+" <CR>  - Edit Module
+" s		- Horizontal split Module
+" vv	- Vertical Split Module
+" t		- Toggles: Enable / Disable on Module
+"------------------------------------------------------------------------------
+" Additionally the defined prefix and mappings in the list below also allow
+" you to directly edit file from within anywhere in the vimrc context
 let s:modules = [
 \	['plugins',    'p', 1],
 \	['myfuncs',    'f', 1],
@@ -20,7 +30,11 @@ let s:modules = [
 \	['mappings',   'm', 1],
 \	['style',      's', 1],
 \]
-"-------------------------------------
+
+" * Can return to this section automatically by pressing 'gm' (within this file)
+"------------------------------------------------------------------------------
+
+
 
 " Current modline or lack thereof
 let s:ModLine = []
@@ -95,8 +109,8 @@ func! s:OnVimrcLoad()
 	call GoToModLines()
 	nnoremap <buffer>t :call ToggleMod()<CR>
 	nnoremap <buffer>s :call SplitMod("split")<CR>
-	nnoremap <buffer>vs :call SplitMod("vsplit")<CR>
-	nnoremap <buffer>g :call GoToModLines()<CR>
+	nnoremap <buffer>vv :call SplitMod("vsplit")<CR>
+	nnoremap <buffer>gm :call GoToModLines()<CR>
 endfunc
 
 " Create toggles for each of the defined mappings in module list
