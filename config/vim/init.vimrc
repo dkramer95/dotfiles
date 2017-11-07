@@ -27,19 +27,19 @@ let s:ModLine = []
 
 
 " Sources the specified file
-func! s:SourceMod(mod)
+func! SourceMod(mod)
 	execute "source " . s:AbsMod(a:mod)
 endfunc
 
 " Opens the specified file
-func! s:EditMod(mod)
+func! EditMod(mod)
 	execute "edit " . s:AbsMod(a:mod)
 endfunc
 
 " Checks to see if line matches module name pattern and opens it if it does
-func! s:OpenMod()
+func! OpenMod()
 	if (s:IsModLine())
-		call s:EditMod(s:ModLine[1])
+		call EditMod(s:ModLine[1])
 	endif
 endfunc
 
@@ -53,7 +53,7 @@ func! s:IsModLine()
 endfunc
 
 " Toggles a module (if on a module line) between 0 / 1
-func! s:ToggleMod()
+func! ToggleMod()
 	if (s:IsModLine())
 		" Go home to prevent replacing wrong character
 		normal! 0
@@ -73,7 +73,7 @@ func! s:ToggleMod()
 endfunc
 
 " Creates a split with the module under the cursor (if exists)
-func! s:SplitMod(split)
+func! SplitMod(split)
 	if (s:IsModLine())
 		execute a:split . " " . s:AbsMod(s:ModLine[1])
 	endif
@@ -84,7 +84,7 @@ func! s:AbsMod(mod)
 	return s:configDir . "/" . a:mod . ".vimrc"
 endfunc
 
-func! s:GoToModLines()
+func! GoToModLines()
 	normal! gg
 	call search("let s:modules = [")
 	call cursor(line(".") + 1, 0)
@@ -92,11 +92,11 @@ endfunc
 
 " Positions cursor at the first module in the list below
 func! s:OnVimrcLoad()
-	call s:GoToModLines()
-	nnoremap <buffer>t :call s:ToggleMod()<CR>
-	nnoremap <buffer>s :call s:SplitMod("split")<CR>
-	nnoremap <buffer>vs :call s:SplitMod("vsplit")<CR>
-	nnoremap <buffer>g :call s:GoToModLines()<CR>
+	call GoToModLines()
+	nnoremap <buffer>t :call ToggleMod()<CR>
+	nnoremap <buffer>s :call SplitMod("split")<CR>
+	nnoremap <buffer>vs :call SplitMod("vsplit")<CR>
+	nnoremap <buffer>g :call GoToModLines()<CR>
 endfunc
 
 " Create toggles for each of the defined mappings in module list
@@ -104,10 +104,10 @@ augroup ModToggles
 	autocmd!
 	for [mod, map, use] in s:modules
 		if (use == 1)
-			call s:SourceMod(mod)
+			call SourceMod(mod)
 			execute "autocmd FileType vim map <buffer> " . s:mPrefix . map .
-					\" :call s:EditMod('" . mod . "')<CR>"
-			autocmd FileType vim map <buffer> <silent><CR> :call s:OpenMod()<CR>
+					\" :call EditMod('" . mod . "')<CR>"
+			autocmd FileType vim map <buffer> <silent><CR> :call OpenMod()<CR>
 		endif
 	endfor
 	autocmd BufReadPost .vimrc call s:OnVimrcLoad()
