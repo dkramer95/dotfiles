@@ -101,7 +101,7 @@ nnoremap <LocalLeader>r <Esc>:set rnu!<CR>
 nnoremap <LocalLeader>e :edit <C-R>=expand('%:p:h') . '/'<CR>
 
 " Fit to specified text width pneumonic -- fit width
-nnoremap fw GVgggq
+nnoremap ftw GVgggq
 
 " Quickly source .vimrc
 nnoremap <leader>rv :source $MYVIMRC<CR>
