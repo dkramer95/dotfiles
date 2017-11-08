@@ -166,6 +166,8 @@ vnoremap <C-V> v
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 
+tnoremap <C-W>n <C-W>N
+
 " Better terminal mode mappings
 if has('terminal')
 	func! TerminalInsert()
@@ -283,29 +285,8 @@ func! LoadPluginMappings()
 		xmap # gc
 	endif
 
-	" NeoComplete
-	if exists ('g:loaded_neocomplete')
-		inoremap <expr><C-g>	neocomplete#undo_completion()
-		inoremap <expr><C-l>	neocomplete#complete_common_string()
-
-		" <CR>: close popup and save indent.
-		inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-		func! s:my_cr_function()
-			return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-		endfunc
-		" <TAB>: completion.
-		inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-		inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-		" <C-h>, <BS>: close popup and delete backword char.
-		inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-		inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-
-		" Snippet config
-		" Plugin key-mappings.
-		" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-		imap <C-k> <Plug>(neosnippet_expand_or_jump)
-		smap <C-k> <Plug>(neosnippet_expand_or_jump)
-		xmap <C-k> <Plug>(neosnippet_expand_target)
+	if exists('g:JavaComplete_PluginLoaded')
+		nnoremap <C-O> :JCimportAddSmart<CR>
 	endif
 
 	" NERDTree
