@@ -155,6 +155,37 @@ let g:neocomplete#sources#dictionary#dictionaries = {
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
 	let g:neocomplete#keyword_patterns = {}
+
+	" Plugin key-mappings. -- Has to be defined here... For some reason it
+	" doesn't work in mapping module
+	inoremap <expr><C-g>     neocomplete#undo_completion()
+	inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+	" Recommended key-mappings.
+	if exists('g:loaded_neocomplete')
+		   " <CR>: close popup and save indent.
+		   inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+	endif
+
+	function! s:my_cr_function()
+		   return neocomplete#close_popup() . "\<CR>"
+		   " For no inserting <CR> key.
+		   "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+	endfunction
+	" <TAB>: completion.
+	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+	" <C-h>, <BS>: close popup and delete backword char.
+	inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+	inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+	inoremap <expr><C-y>  neocomplete#close_popup()
+	inoremap <expr><C-e>  neocomplete#cancel_popup()
+	" Close popup by <Space>.
+	inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+	imap <C-k> <Plug>(neosnippet_expand_or_jump)
+	smap <C-k> <Plug>(neosnippet_expand_or_jump)
+	xmap <C-k> <Plug>(neosnippet_expand_target)
 else
 	let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 endif
@@ -182,3 +213,5 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
+
+
