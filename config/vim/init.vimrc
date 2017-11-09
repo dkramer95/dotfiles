@@ -113,16 +113,17 @@ func! s:OnVimrcLoad()
 	nnoremap <buffer>gm :call GoToModLines()<CR>
 endfunc
 
-" Create toggles for each of the defined mappings in module list
+" Load and create toggles for each module
 augroup ModToggles
 	autocmd!
 	for [mod, map, use] in s:modules
 		if (use == 1)
 			call SourceMod(mod)
+		endif
+			" Create keyboard toggle shortcut
 			execute "autocmd FileType vim map <buffer> " . s:mPrefix . map .
 					\" :call EditMod('" . mod . "')<CR>"
 			autocmd FileType vim map <buffer> <silent><CR> :call OpenMod()<CR>
-		endif
 	endfor
 	autocmd BufReadPost .vimrc call s:OnVimrcLoad()
 augroup END
