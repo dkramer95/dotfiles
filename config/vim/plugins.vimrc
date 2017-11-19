@@ -68,6 +68,12 @@ Plug 'tpope/vim-dispatch'
 " Buffer switching plugin
 Plug 'googie109/KSwitch'
 
+" Focus Events for use with tmux
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
+" Better clipboard integration with tmux
+Plug 'roxma/vim-tmux-clipboard'
+
 
 " Autocompletion
 if (has('lua'))
