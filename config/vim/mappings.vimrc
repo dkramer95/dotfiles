@@ -194,6 +194,12 @@ if has('terminal')
 	" Easier escape to terminal normal mode
 	tnoremap <C-w>kj <C-W>N
 
+	" Easier movement between other windows from terminal
+	tnoremap <C-h> <C-w>h
+	tnoremap <C-j> <C-w>j
+	tnoremap <C-k> <C-w>k
+	tnoremap <C-l> <C-w>l
+
 	" Easier way to go back into terminal insert mode
 	nnoremap <silent> <CR> :call TerminalInsert()<CR>
 	nnoremap <LocalLeader>t :call CreateSplitTerminal()<CR>
