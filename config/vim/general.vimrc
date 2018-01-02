@@ -97,7 +97,7 @@ set tabstop=4
 set noexpandtab
 
 " Stronger encryption
-setlocal cm=blowfish2
+set cm=blowfish2
 
 " Automatically update file if modified by external program
 set autoread
@@ -180,6 +180,8 @@ endfunc
 func! OnBufEnter()
 	if !exists("b:syntax")
 		let b:syntax = &syntax
+	else
+		let b:syntax = &filetype
 	endif
 	if exists("&colorcolumn")
 		let &colorcolumn=g:colorcolumnWidth
