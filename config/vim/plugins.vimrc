@@ -103,6 +103,9 @@ Plug 'digitaltoad/vim-pug'
 " File explorer
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
+" Kotlin syntax plugin
+Plug 'udalov/kotlin-vim'
+
 " Code completion
 Plug 'prurigro/vim-markdown-concealed'
 Plug 'moll/vim-node', { 'for': ['javascript'] }
