@@ -157,6 +157,9 @@ if (has("gui_running"))
 
 	" Disable cursor blinking
 	set guicursor+=a:blinkon0
+
+	" Gui font
+	set guifont=DejaVu_Sans_Mono_for_Powerline,Courier_New
 endif
 
 " Reduce visibility of inactive window
