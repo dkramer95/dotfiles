@@ -130,7 +130,7 @@ set cmdheight=2
 
 
 " Access system clipboarod
-if (has("win32") || (has("unix") && (system("uname -s") =~ "Darwin")))
+if (has("win32") || has("win32unix") || (has("unix") && (system("uname -s") =~ "Darwin")))
 	" Windows or MacOS
 	set clipboard=unnamed
 else

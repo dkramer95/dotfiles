@@ -166,7 +166,6 @@ vnoremap <C-V> v
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 
-tnoremap <C-W>n <C-W>N
 
 " Better terminal mode mappings
 if has('terminal')
@@ -190,6 +189,8 @@ if has('terminal')
 		" Don't run tmux within vim
 		call feedkeys("exit\<CR>")
 	endfunc
+
+	tnoremap <C-W>n <C-W>N
 
 	" Easier escape to terminal normal mode
 	tnoremap <C-w>kj <C-W>N
