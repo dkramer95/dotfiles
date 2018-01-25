@@ -59,6 +59,9 @@ Plug 'jondkinney/dragvisuals.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" Utility for tab management
+Plug 'gcmt/taboo.vim'
+
 " Tmux navigation integration
 Plug 'christoomey/vim-tmux-navigator'
 
