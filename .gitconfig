@@ -13,6 +13,7 @@
 	autocrlf = false
 	editor = /usr/bin/vim
 	excludesfile = ~/.gitignore
+	pager = less -iXFR
 [diff]
 	tool = vimdiff
 [difftool]
