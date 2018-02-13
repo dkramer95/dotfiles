@@ -279,6 +279,11 @@ func! LoadPluginMappings()
 		nnoremap <C-p> :CommandT<CR>
 	endif
 
+	" Fugitive
+	if exists('g:loaded_fugitive')
+		nnoremap <F3> :Gstatus<CR>
+	endif
+
 	" Tagbar
 	if exists('g:loaded_tagbar') || exists(':TagbarToggle')
 		nmap <F8> :TagbarToggle<CR>
