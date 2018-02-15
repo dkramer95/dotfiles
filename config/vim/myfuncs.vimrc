@@ -3,6 +3,11 @@ func! SourceFile()
 	:source %
 endfunc
 
+" Play a macro that is not necessarily defined in a register
+func! Play(arg)
+	execute 'normal ' . a:arg
+endfunc
+
 "Double-delete to remove trailing whitespace...
 nmap <silent> <BS><BS> :call TrimTrailingWS()<CR>
 
