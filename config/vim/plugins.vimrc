@@ -68,6 +68,9 @@ Plug 'christoomey/vim-tmux-navigator'
 " Async build / test dispatcher (required with omnisharp)
 Plug 'tpope/vim-dispatch'
 
+" Async Run
+Plug 'skywind3000/asyncrun.vim'
+
 " Buffer switching plugin
 Plug 'googie109/KSwitch'
 
@@ -76,6 +79,9 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Better clipboard integration with tmux
 Plug 'roxma/vim-tmux-clipboard'
+
+" Automatically adjust indentation based on current file
+Plug 'tpope/vim-sleuth'
 
 
 " Autocompletion
@@ -88,6 +94,9 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/vimshell'
+
+" Required for vimshell
+Plug 'Shougo/vimproc'
 
 " OpenGL Syntax
 Plug 'tikhomirov/vim-glsl'
@@ -116,7 +125,13 @@ Plug '1995eaton/vim-better-javascript-completion', { 'for': ['javascript']}
 Plug 'OmniSharp/omnisharp-vim', { 'for': ['css', 'java', 'cs'] }
 Plug 'ctrlpvim/ctrlp.vim', { 'for': ['javascript', 'css', 'java', 'cs'] }
 Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java'] }
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
+
+" Typescript plugins
+Plug 'Quramy/tsuquyomi'
+Plug 'leafgarland/typescript-vim'
+
+" Jasmine unit testing plugin
+Plug 'claco/jasmine.vim'
 
 call plug#end()
 
@@ -211,6 +226,7 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd FileType typescript setlocal completeopt+=menu,preview
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -226,4 +242,19 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
 
+if !exists('g:neocomplete#force_omni_input_patterns')
+	let g:neocomplete#force_omni_input_patterns = {}
+endif
 
+" Typescript support neocomplete
+let g:neocomplete#force_omni_input_patterns.typescript = '[^. *\t]\.\w*\|\h\w*::'
+
+" Typescript config
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
+let g:tsuquoyomi_completion_detail = 1
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi']
