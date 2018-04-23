@@ -20,5 +20,5 @@ highlight TabLineFill ctermbg=238
 " Diff highlighting
 highlight DiffAdd term=bold ctermfg=16 ctermbg=70
 highlight DiffChange term=bold ctermfg=16 ctermbg=70
-highlight DiffDelete term=bold ctermfg=16 ctermbg=160
+highlight DiffDelete term=bold ctermfg=251 ctermbg=160
 highlight DiffText term=reverse ctermfg=16 ctermbg=221

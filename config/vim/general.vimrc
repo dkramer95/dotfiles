@@ -77,6 +77,9 @@ set scrolloff=5
 " Show matching brackets/parenthesis
 set showmatch
 
+" Better diff mode options
+set diffopt=filler,context:12,vertical
+
 " Indent at same position as the previous line
 set autoindent
 
@@ -164,6 +167,11 @@ endif
 
 " Reduce visibility of inactive window
 func! OnBufLeave()
+	" Preserve highlighting when in diff mode
+	if (&diff == 1)
+		return
+	endif
+
 	execute "setlocal syntax=0 | setlocal nonu | setlocal nornu"
 	set nocursorline
 	if exists("&colorcolumn")

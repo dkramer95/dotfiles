@@ -117,6 +117,9 @@ nnoremap " '
 nnoremap Q q
 nnoremap q <nop>
 
+" Update diff
+nnoremap du :diffupdate <CR>
+
 
 " Yank current char under cursor to the clipboard or custom register
 func! YankChar()
