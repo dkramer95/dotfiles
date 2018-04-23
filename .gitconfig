@@ -4,11 +4,31 @@
 	br = branch
 	cm = commit
 	co = checkout
+	cob = checkout -b
 	d = difftool
-	hreset = reset --hard
 	lg = log
-	st = status
+	pl = pull
+	pu = push
 	pushup = push --set-upstream
+	rsth = reset --hard
+	st = status
+[color]
+	branch = auto
+	diff = auto
+	status = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
 [core]
 	autocrlf = false
 	editor = /usr/bin/vim
