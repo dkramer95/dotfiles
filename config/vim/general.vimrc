@@ -90,14 +90,17 @@ set encoding=utf8
 set listchars=tab:>-,eol:¬,trail:␠
 set list
 
-" Use indents instead of 4 spaces
-set shiftwidth=4
-
 " Indentation every 4 columns
 set tabstop=4
 
-" Use tabs NOT spaces
-set noexpandtab
+" Use indents instead of 4 spaces
+set shiftwidth=4
+
+" Expand tabs to spaces
+set expandtab
+
+" Recognize existing indentation
+set smarttab
 
 " Stronger encryption
 set cm=blowfish2
