@@ -28,6 +28,9 @@ Plug 'airblade/vim-gitgutter'
 " Git wrapper
 Plug 'tpope/vim-fugitive'
 
+" Git(Hub) component for fugitive
+Plug 'tpope/vim-rhubarb'
+
 " Syntax checking
 Plug 'scrooloose/syntastic', { 'for': ['javascript', 'css', 'java', 'cs', 'cpp', 'c', 'html', 'python'] }
 
@@ -51,6 +54,9 @@ Plug 'wincent/command-t'
 
 " Enhanced matching of tags
 Plug 'tmhedberg/matchit'
+
+" Multiple cursors
+Plug 'terryma/vim-multiple-cursors'
 
 " Awesome visual drag plugin
 Plug 'jondkinney/dragvisuals.vim'
@@ -223,7 +229,9 @@ autocmd FileType c setlocal omnifunc=ccomplete#Complete
 autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+if (has("python"))
+	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+endif
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType typescript setlocal completeopt+=menu,preview
