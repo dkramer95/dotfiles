@@ -89,20 +89,15 @@ Plug 'roxma/vim-tmux-clipboard'
 " Automatically adjust indentation based on current file
 Plug 'tpope/vim-sleuth'
 
-
-" Autocompletion
-if (has('lua'))
-	Plug 'Shougo/neocomplete'
-endif
+" Async Autocompletion
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
 " Completion snippets
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
-Plug 'Shougo/vimshell'
-
-" Required for vimshell
-Plug 'Shougo/vimproc'
 
 " OpenGL Syntax
 Plug 'tikhomirov/vim-glsl'
@@ -168,94 +163,58 @@ set statusline+=%*
 " Neosnippets config
 let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets'
 
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" let g:deoplete#enable_at_startup = 1
 
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-	\ 'default' : '',
-	\ 'vimshell' : $HOME.'/.vimshell_hist',
-	\ 'scheme' : $HOME.'/.gosh_completions'
-	\ }
+if !exists('g:deoplete#omni#input_patterns')
+	let g:deoplete#omni#input_patterns = {}
+endif
 
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-	let g:neocomplete#keyword_patterns = {}
+" Defer loading deoplete to decrease startup time
+augroup deopleteGroup
+	autocmd CursorHold * call s:LoadDeoplete()
+	" let g:deoplete#disable_auto_complete = 1
+	autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+augroup END
 
-	" Plugin key-mappings. -- Has to be defined here... For some reason it
-	" doesn't work in mapping module
-	inoremap <expr><C-g>     neocomplete#undo_completion()
-	inoremap <expr><C-l>     neocomplete#complete_common_string()
+func! s:LoadDeoplete()
+	if !exists('g:deoplete#_initialized')
+		call deoplete#enable()
 
-	" Recommended key-mappings.
-	if exists('g:loaded_neocomplete')
-		   " <CR>: close popup and save indent.
-		   inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+		" Unregister deopleteGroup
+		augroup deopleteGroup
+			autocmd!
+		augroup END
 	endif
+endfunc
 
-	function! s:my_cr_function()
-		   return neocomplete#close_popup() . "\<CR>"
-		   " For no inserting <CR> key.
-		   "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-	endfunction
-	" <TAB>: completion.
-	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-	" <C-h>, <BS>: close popup and delete backword char.
-	inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-	inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-	inoremap <expr><C-y>  neocomplete#close_popup()
-	inoremap <expr><C-e>  neocomplete#cancel_popup()
-	" Close popup by <Space>.
-	inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
-	imap <C-k> <Plug>(neosnippet_expand_or_jump)
-	smap <C-k> <Plug>(neosnippet_expand_or_jump)
-	xmap <C-k> <Plug>(neosnippet_expand_target)
-else
-	let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-endif
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType c setlocal omnifunc=ccomplete#Complete
-autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-if (has("python"))
+" Omnicomplete with deoplete
+augroup omnifuncs
+	autocmd!
+	autocmd FileType c setlocal omnifunc=ccomplete#Complete
+	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType java setlocal omnifunc=javacomplete#Complete
 	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-endif
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-autocmd FileType typescript setlocal completeopt+=menu,preview
+augroup END
 
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-	let g:neocomplete#sources#omni#input_patterns = {}
-endif
+" Deoplete tab-complete
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+" Close out popups
+inoremap <expr><C-y> deoplete#close_popup()
+inoremap <expr><C-e> deoplete#cancel_popup()
+inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><Space> pumvisible() ? deoplete#close_popup() : "\<Space>"
 
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
 
-if !exists('g:neocomplete#force_omni_input_patterns')
-	let g:neocomplete#force_omni_input_patterns = {}
-endif
-
-" Typescript support neocomplete
-let g:neocomplete#force_omni_input_patterns.typescript = '[^. *\t]\.\w*\|\h\w*::'
+" Neosnippet conf
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " Typescript config
 let g:typescript_compiler_binary = 'tsc'
