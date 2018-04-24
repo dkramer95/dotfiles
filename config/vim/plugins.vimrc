@@ -78,7 +78,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'skywind3000/asyncrun.vim'
 
 " Buffer switching plugin
-Plug 'googie109/KSwitch'
+Plug 'dkramer95/KSwitch'
 
 " Focus Events for use with tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
