@@ -308,6 +308,11 @@ func! LoadPluginMappings()
 	if exists(':NERDTreeToggle')
 		nmap <F7> :NERDTreeToggle<CR>
 	endif
+
+	" TabooRename
+	if exists('g:loaded_taboo')
+		nnoremap <C-w>, :TabooRename 
+	endif
 endfunc
 
 " Use xterm style keys.. This is needed for using <S-CursorKey> mappings
