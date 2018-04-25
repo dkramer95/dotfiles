@@ -74,6 +74,9 @@ set viminfo='20,<1000
 " Minimum lines to keep above and below cursor
 set scrolloff=5
 
+" Allow cursor to move just past end of line
+set virtualedit=onemore
+
 " Show matching brackets/parenthesis
 set showmatch
 
