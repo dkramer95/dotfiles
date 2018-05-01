@@ -74,6 +74,9 @@ nnoremap <S-Tab> :bnext<CR>:redraw<CR>:ls<CR>
 " Show the path of the current file
 nnoremap <leader>p :echo expand('%')<CR>
 
+" Close current window
+nnoremap <C-x> :close<CR>
+
 " Show only the current window
 nnoremap <leader>o :only<CR>
 
