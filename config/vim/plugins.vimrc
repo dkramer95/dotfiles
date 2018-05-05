@@ -28,6 +28,9 @@ Plug 'airblade/vim-gitgutter'
 " Git wrapper
 Plug 'tpope/vim-fugitive'
 
+" Git conflict resolution (reliant on fugitive)
+Plug 'christoomey/vim-conflicted'
+
 " Git(Hub) component for fugitive
 Plug 'tpope/vim-rhubarb'
 
@@ -155,10 +158,12 @@ let g:CommandTMaxFiles = 50000
 
 
 " Syntastic config
-set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+if exists('g:loaded_syntastic_plugin')
+	set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+	set statusline+=%#warningmsg#
+	set statusline+=%{SyntasticStatuslineFlag()}
+	set statusline+=%*
+endif
 
 " Neosnippets config
 let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets'
