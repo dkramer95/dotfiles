@@ -28,6 +28,9 @@ Plug 'airblade/vim-gitgutter'
 " Git wrapper
 Plug 'tpope/vim-fugitive'
 
+" Fugitive extension
+Plug 'gregsexton/gitv'
+
 " Git conflict resolution (reliant on fugitive)
 Plug 'christoomey/vim-conflicted'
 
