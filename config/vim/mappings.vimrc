@@ -123,6 +123,12 @@ nnoremap q <nop>
 " Update diff
 nnoremap du :diffupdate <CR>
 
+" Quickfix navigation
+nnoremap [q :cprev<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [Q :cfirst<CR>
+nnoremap ]Q :clast<CR>
+
 
 " Yank current char under cursor to the clipboard or custom register
 func! YankChar()
@@ -314,7 +320,7 @@ func! LoadPluginMappings()
 
 	" TabooRename
 	if exists('g:loaded_taboo')
-		nnoremap <C-w>, :TabooRename 
+		nnoremap <C-w>, :TabooRename
 	endif
 endfunc
 
