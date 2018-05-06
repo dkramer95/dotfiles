@@ -182,7 +182,7 @@ augroup deopleteGroup
 augroup END
 
 func! s:LoadDeoplete()
-	if !exists('g:deoplete#_initialized')
+	if !exists('g:deoplete#_initialized') && exists('g:loaded_deoplete')
 		call deoplete#enable()
 
 		" Unregister deopleteGroup
