@@ -23,7 +23,7 @@ Plug 'tpope/vim-surround'
 Plug 'majutsushi/tagbar', { 'for': ['javascript', 'css', 'java', 'cs', 'cpp', 'c', 'python'] }
 
 " Show git status in the gutter
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterEnable'] }
 
 " Git wrapper
 Plug 'tpope/vim-fugitive'
@@ -159,6 +159,12 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 " Command-T config
 let g:CommandTMaxFiles = 50000
 
+" Update time we normally want
+let s:normalUpdateTime = 2000
+
+" Update time for first launch
+let s:firstUpdateTime = 10
+exec "set updatetime=" . s:firstUpdateTime
 
 " Syntastic config
 if exists('g:loaded_syntastic_plugin')
@@ -177,24 +183,32 @@ if !exists('g:deoplete#omni#input_patterns')
 	let g:deoplete#omni#input_patterns = {}
 endif
 
-" Defer loading deoplete to decrease startup time
-augroup deopleteGroup
-	autocmd CursorHold * call s:LoadDeoplete()
-	" let g:deoplete#disable_auto_complete = 1
-	autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-augroup END
 
-func! s:LoadDeoplete()
-	if !exists('g:deoplete#_initialized') && exists('g:loaded_deoplete')
-		call deoplete#enable()
+" Handle loading heavy weight plugins after startup
+func! s:LazyLoadPlugins()
+	if !exists('g:lazily_loaded_plugins')
+		" Load Deoplete
+		if !exists('g:deoplete#_initialized') && exists('g:loaded_deoplete')
+			call deoplete#enable()
+		endif
 
-		" Unregister deopleteGroup
-		augroup deopleteGroup
+		" Load GitGutter
+		GitGutterEnable
+
+		" Unregister autocmd for lazily loading plugins
+		augroup lazyLoadGroup
 			autocmd!
 		augroup END
+
+		let g:lazily_loaded_plugins = 1
+		exec "set updatetime=" . s:normalUpdateTime
 	endif
 endfunc
 
+" Wait for cursor hold before lazily loading
+augroup lazyLoadGroup
+	autocmd CursorHold * call s:LazyLoadPlugins()
+augroup END
 
 " Omnicomplete with deoplete
 augroup omnifuncs
