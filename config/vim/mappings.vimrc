@@ -52,6 +52,10 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" Make splits faster
+nnoremap \\ :vsplit<CR>
+nnoremap -- :split<CR>
+
 " Easier access to command mode
 map <leader> :
 
