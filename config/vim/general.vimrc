@@ -105,6 +105,10 @@ set expandtab
 " Recognize existing indentation
 set smarttab
 
+" Show hidden whitespace chars
+set listchars=tab:>-,eol:¬,trail:␠
+set list
+
 " Stronger encryption
 set cm=blowfish2
 
@@ -118,13 +122,13 @@ set ttyfast
 set lazyredraw
 
 " Decrease command interp wait time (default 1000ms)
-set timeoutlen=350
+set timeoutlen=500
 
 " Visual autocomplete for command menu
 set wildmenu
 
 " Text colorscheme
-silent! colorscheme brogrammer
+silent! colorscheme greens
 
 " For those emergencies...
 set mouse=a
@@ -166,7 +170,7 @@ if (has("gui_running"))
 	set guicursor+=a:blinkon0
 
 	" Gui font
-	set guifont=DejaVu_Sans_Mono_for_Powerline,Courier_New
+	set guifont=Sauce_Code_Powerline_Light:h14,DejaVu_Sans_Mono_for_Powerline,Courier_New
 endif
 
 " Reduce visibility of inactive window

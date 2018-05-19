@@ -129,7 +129,7 @@ Plug 'udalov/kotlin-vim'
 Plug 'prurigro/vim-markdown-concealed'
 Plug 'moll/vim-node', { 'for': ['javascript'] }
 Plug '1995eaton/vim-better-javascript-completion', { 'for': ['javascript']}
-Plug 'OmniSharp/omnisharp-vim', { 'for': ['css', 'java', 'cs'] }
+" Plug 'OmniSharp/omnisharp-vim', { 'for': ['css', 'java', 'cs'] }
 Plug 'ctrlpvim/ctrlp.vim', { 'for': ['javascript', 'css', 'java', 'cs'] }
 Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java'] }
 

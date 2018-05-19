@@ -14,6 +14,13 @@ let g:airline_section_z = '%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%
 set background=dark
 silent! colorscheme PaperColor
 
+" Black BG for Amoled display
+highlight Normal ctermbg=0
+
+" Show underline rather than highlight for current line
+highlight clear CursorLine
+highlight CursorLine cterm=underline
+
 " Additional Color Tweaks
 highlight TabLineFill ctermbg=238
 

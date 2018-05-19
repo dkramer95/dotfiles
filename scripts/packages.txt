@@ -1,6 +1,6 @@
 # packages.txt
 # Author: David Kramer
-# Last Updated: 06/22/17
+# Last Updated: 04/09/18 
 
 # Overview
 # This file contains a listing of all the packages that will be installed if
@@ -8,15 +8,19 @@
 # want to be installed, simply add a '#' to the front of the line and it will be
 # ignored.
 
+nbtscan           # Network scanner
+coreutils         # Standard core utilities
 git               # Source control
 htop              # Enhanced 'top' program for viewing processes
 iftop             # Network traffic monitor
 lynx              # Command line web browser
 mongo             # NoSQL JSON Document Database
-#nbtscan          # Network scanner
+make              # Compilation tool
 nmap              # Network port scanner
 node              # Backend JavaScript web framework
 npm               # Package manager for NodeJS
+python            # Python language
+termux-api        # Termux Api's
 tmux              # Terminal multiplexer
 tty-clock         # Blocky Terminal Clock
 vim               # Insanely powerful awesome text editor

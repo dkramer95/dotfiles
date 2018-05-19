@@ -5,7 +5,7 @@
 "------------------------------------------------------------------------------
 
 let mapleader = "\<Space>"
-let maplocalleader = ","
+let maplocalleader = "|"
 
 " Easier escape
 inoremap kj <Esc>
@@ -99,7 +99,7 @@ inoremap <F12> <Esc>:tabnew $MYVIMRC<CR>
 nnoremap <F12> <Esc>:tabnew $MYVIMRC<CR>
 
 " Additional fast toggle to edit .vimrc in current window
-nnoremap <LocalLeader>, <Esc>:e $MYVIMRC<CR>
+nnoremap <LocalLeader><Bar> <Esc>:e $MYVIMRC<CR>
 
 " Toggle between relative / normal line numbers
 nnoremap <LocalLeader>r <Esc>:set rnu!<CR>
@@ -194,7 +194,7 @@ if has('terminal')
 
 	" Creates a terminal split to the right
 	func! CreateSplitTerminal()
-		:term
+		:term zsh
 
 		" Hacky work around to fix <CR> key not working when creating
 		" a terminal and moving it w/ feedkeys instead of actually typing
@@ -202,8 +202,11 @@ if has('terminal')
 		call term_wait(bufnr("%"), 1)
 		" Min sleep time that makes this hack work
 		sleep 400m
+		" Specific workaround for this galaxy s7
 		" Don't run tmux within vim
-		call feedkeys("exit\<CR>")
+		call feedkeys("\<CR>  exit")
+		sleep 200m
+		call feedkeys("\<CR>  exit\<CR>")
 	endfunc
 
 	tnoremap <C-W>n <C-W>N
@@ -320,6 +323,14 @@ func! LoadPluginMappings()
 	" NERDTree
 	if exists(':NERDTreeToggle')
 		nmap <F7> :NERDTreeToggle<CR>
+	endif
+
+	"KSwitch
+	if exists('g:loaded_kswitch')
+		nnoremap <silent> <F9> :call KSwitch#Toggle()<CR>
+		let g:kswitch_debug_mode = 1
+		let g:kswitch_panel_direction = "left"
+		let g:kswitch_auto_hide = 0
 	endif
 
 	" TabooRename

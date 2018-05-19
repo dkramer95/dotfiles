@@ -133,7 +133,7 @@ stty -ixon
 
 # ensure colors are escaped with \[\e to prevent overwriting in output
 export PS1="\[\e[32m\]\t\[\e[m\]\[\e[36m\] [\u:\W]\[\e[m\]\$ "
-
+export EDITOR=$(which vim)
 # export TERM="screen-256color"
 
 tmux new bash

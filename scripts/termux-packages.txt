@@ -1,0 +1,52 @@
+# termux-packages.txt
+# Author: David Kramer
+# Last Updated: 05/08/18
+
+# Overview
+# This file contains a listing of all the packages that will be installed if
+# do not already exist on the system. If there are any packages that you do not
+# want to be installed, simply add a '#' to the front of the line and it will be
+# ignored.
+
+# REQUIRED -- Do not comment any of these out otherwise problems could occur
+curl              # HTTP Utility
+coreutils         # Single binary for coreutils programs
+git               # Source control / easy way to get things from repos
+ncurses-utils     # Useful for terminal related things
+openssh           # SSH Utility
+zsh               # Improvement over bash
+
+
+###############################################################################
+
+# DEVELOPMENT TOOLS
+clang             # C-support
+ctags             # Tag generator (used w/ vim)
+diffutils         # Generate diffs
+flask             # Python web framework
+gdb               # CLI Debugger
+inetutils         # Net utils
+make              # Build tool
+python            # Latest Python
+python2           # Python v/2.x
+ruby              # Ruby interpreter
+
+
+###############################################################################
+
+# OPTIONAL
+htop              # Enhanced 'top' program for viewing processes
+iftop             # Network traffic monitor
+lynx              # Command line web browser
+man               # Man pages for commands
+mongo             # NoSQL JSON Document Database
+nbtscan           # Network scanner
+nmap              # Network port scanner
+node              # Backend JavaScript web framework
+npm               # Package manager for NodeJS
+tmux              # Terminal multiplexer
+tracepath         # Network route tracer
+tty-clock         # Blocky Terminal Clock
+vim               # Insanely powerful awesome text editor
+
+# NOTE -- If this opened from running the 'setup-unix' simply type :wq! after you're done!
