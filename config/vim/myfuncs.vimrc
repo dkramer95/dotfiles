@@ -139,4 +139,9 @@ func! C64Mode()
 	redraw
 endfunc
 
+func! HackerMode()
+	syntax off
+	hi Normal ctermfg=green
+endfunc
+
 nnoremap <F6> :call C64Mode()<CR>
