@@ -46,6 +46,20 @@ endfunc
 
 nmap tc <Esc>:call TitleCaseLine()<CR>
 
+func! EditMacro(reg)
+	" TODO? only supports named registers
+	if matchstr(a:reg, '^[a-zA-Z]$') == ""
+		echoerr "Argument '" . a:reg . "' is not a valid register"
+		return
+	endif
+	execute "let macro = @" . a:reg
+	let cmd = ": let @" . a:reg . " = '\<C-r>" . a:reg . "'"
+	call feedkeys(cmd)
+endfunc
+
+command! -nargs=1 EditMacro :call EditMacro("<args>")
+cabbrev emac EditMacro
+
 
 " Just for FUN function that will take whatever text is in the
 " current buffer, and create a new separate bufferand animate
