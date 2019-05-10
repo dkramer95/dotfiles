@@ -52,6 +52,13 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" Move between windows more easily in insert
+imap <C-j> <esc><C-W>j
+imap <C-k> <esc><C-W>k
+imap <C-h> <esc><C-W>h
+imap <C-l> <esc><C-W>l
+
+
 " Make splits faster
 nnoremap \\ :vsplit<CR>
 nnoremap -- :split<CR>
