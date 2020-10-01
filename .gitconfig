@@ -33,9 +33,9 @@
 	untracked = cyan
 [core]
 	autocrlf = false
-	editor = $(which vim)
 	excludesfile = ~/.gitignore
 	pager = less -iXFR
+	editor = vim
 [diff]
 	tool = vimdiff
 [difftool]
