@@ -96,9 +96,10 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'tpope/vim-sleuth'
 
 " Async Autocompletion
-Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
+" TODO these are currently causing issues
+"Plug 'Shougo/deoplete.nvim'
+"Plug 'roxma/nvim-yarp'
+"Plug 'roxma/vim-hug-neovim-rpc'
 
 " Completion snippets
 Plug 'Shougo/neosnippet'
