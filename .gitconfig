@@ -33,7 +33,6 @@
 	untracked = cyan
 [core]
 	autocrlf = false
-	editor = /usr/bin/vim
 	excludesfile = ~/.gitignore
 	pager = less -iXFR
 	editor = vim
