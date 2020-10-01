@@ -36,6 +36,7 @@
 	editor = /usr/bin/vim
 	excludesfile = ~/.gitignore
 	pager = less -iXFR
+	editor = vim
 [diff]
 	tool = vimdiff
 [difftool]
