@@ -63,3 +63,7 @@ nnoremap tt :tabnew<CR>
 
 " Quit faster
 nnoremap <leader>q :quit<CR>
+
+
+" Make JSON beautiful
+command! FormatJSON %!python -m json.tool
