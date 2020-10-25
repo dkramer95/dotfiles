@@ -59,13 +59,6 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 export PS1='%{$purple%}%n${PR_RST} in %{$limegreen%}%~${PR_RST} $vcs_info_msg_0_$(virtualenv_info)
 %{$orange%}λ %{$reset_color%}%'
 
-# Auto attach to last tmux session if exists
-tmux_sessions=$(tmux ls 2>&1)
+# Start up with tmux
+tmux
 clear # Clear annoying warning
-if [[ "$tmux_sessions" =~ "no server" ]]; then
-    echo "Starting new tmux session"
-    tmux
-else
-    echo "attach to existing tmux"
-    tmux attach
-fi
