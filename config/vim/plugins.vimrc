@@ -95,51 +95,17 @@ Plug 'roxma/vim-tmux-clipboard'
 " Automatically adjust indentation based on current file
 Plug 'tpope/vim-sleuth'
 
-" Async Autocompletion
-" TODO these are currently causing issues
-"Plug 'Shougo/deoplete.nvim'
-"Plug 'roxma/nvim-yarp'
-"Plug 'roxma/vim-hug-neovim-rpc'
-
-" Completion snippets
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'honza/vim-snippets'
-
-" OpenGL Syntax
-Plug 'tikhomirov/vim-glsl'
-
 " More contextually aware snippet suggestions
 Plug 'Shougo/context_filetype.vim'
 
 " Vim autocomplete
 Plug 'Shougo/neco-vim'
 
-" Pug syntax plugin
-Plug 'digitaltoad/vim-pug'
-
 " Lazy / deferred loaded plugins (to decrease startup time)
 
 " File explorer
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-" Kotlin syntax plugin
-Plug 'udalov/kotlin-vim'
-
-" Code completion
-Plug 'prurigro/vim-markdown-concealed'
-Plug 'moll/vim-node', { 'for': ['javascript'] }
-Plug '1995eaton/vim-better-javascript-completion', { 'for': ['javascript']}
-" Plug 'OmniSharp/omnisharp-vim', { 'for': ['css', 'java', 'cs'] }
-Plug 'ctrlpvim/ctrlp.vim', { 'for': ['javascript', 'css', 'java', 'cs'] }
-Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java'] }
-
-" Typescript plugins
-Plug 'Quramy/tsuquyomi'
-Plug 'leafgarland/typescript-vim'
-
-" Jasmine unit testing plugin
-Plug 'claco/jasmine.vim'
 
 call plug#end()
 
