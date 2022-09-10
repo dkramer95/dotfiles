@@ -92,9 +92,6 @@ Plug 'tpope/vim-sleuth'
 " More contextually aware snippet suggestions
 Plug 'Shougo/context_filetype.vim'
 
-" Vim autocomplete
-Plug 'Shougo/neco-vim'
-
 " Lazy / deferred loaded plugins (to decrease startup time)
 
 " File explorer
@@ -135,23 +132,9 @@ if exists('g:loaded_syntastic_plugin')
 	set statusline+=%*
 endif
 
-" Neosnippets config
-let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets'
-
-" let g:deoplete#enable_at_startup = 1
-
-if !exists('g:deoplete#omni#input_patterns')
-	let g:deoplete#omni#input_patterns = {}
-endif
-
-
 " Handle loading heavy weight plugins after startup
 func! s:LazyLoadPlugins()
 	if !exists('g:lazily_loaded_plugins')
-		" Load Deoplete
-		if !exists('g:deoplete#_initialized') && exists('g:loaded_deoplete')
-			call deoplete#enable()
-		endif
 
 		" Load GitGutter
 		GitGutterEnable
@@ -170,41 +153,3 @@ endfunc
 augroup lazyLoadGroup
 	autocmd CursorHold * call s:LazyLoadPlugins()
 augroup END
-
-" Omnicomplete with deoplete
-augroup omnifuncs
-	autocmd!
-	autocmd FileType c setlocal omnifunc=ccomplete#Complete
-	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType java setlocal omnifunc=javacomplete#Complete
-	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-augroup END
-
-" Deoplete tab-complete
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" Close out popups
-inoremap <expr><C-y> deoplete#close_popup()
-inoremap <expr><C-e> deoplete#cancel_popup()
-inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
-inoremap <expr><Space> pumvisible() ? deoplete#close_popup() : "\<Space>"
-
-
-" Neosnippet conf
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-
-" Typescript config
-let g:typescript_compiler_binary = 'tsc'
-let g:typescript_compiler_options = ''
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-
-let g:tsuquoyomi_completion_detail = 1
-let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi']
