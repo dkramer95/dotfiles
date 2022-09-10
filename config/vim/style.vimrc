@@ -14,12 +14,12 @@ let g:airline_section_z = '%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%
 set background=dark
 silent! colorscheme PaperColor
 
-" Black BG for Amoled display
-highlight Normal ctermbg=0
-highlight EndOfBuffer ctermbg=0
-highlight SignColumn ctermbg=0
-highlight LineNr ctermbg=0
-highlight NonText ctermbg=0
+" Transparent Background
+highlight Normal ctermbg=None
+highlight EndOfBuffer ctermbg=None
+highlight SignColumn ctermbg=None
+highlight LineNr ctermbg=None
+highlight NonText ctermbg=None
 
 " Show underline rather than highlight for current line
 highlight clear CursorLine
