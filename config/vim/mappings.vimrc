@@ -202,18 +202,6 @@ if has('terminal')
 	" Creates a terminal split to the right
 	func! CreateSplitTerminal()
 		:term zsh
-
-		" Hacky work around to fix <CR> key not working when creating
-		" a terminal and moving it w/ feedkeys instead of actually typing
-		call feedkeys("\<C-w>L\<CR>")
-		call term_wait(bufnr("%"), 1)
-		" Min sleep time that makes this hack work
-		sleep 400m
-		" Specific workaround for this galaxy s7
-		" Don't run tmux within vim
-		call feedkeys("\<CR>  exit")
-		sleep 200m
-		call feedkeys("\<CR>  exit\<CR>")
 	endfunc
 
 	tnoremap <C-W>n <C-W>N
