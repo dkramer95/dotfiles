@@ -28,14 +28,8 @@ Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterEnable'] }
 " Git wrapper
 Plug 'tpope/vim-fugitive'
 
-" Fugitive extension
-Plug 'gregsexton/gitv'
-
 " Git conflict resolution (reliant on fugitive)
 Plug 'christoomey/vim-conflicted'
-
-" Git(Hub) component for fugitive
-Plug 'tpope/vim-rhubarb'
 
 " Syntax checking
 Plug 'scrooloose/syntastic', { 'for': ['javascript', 'css', 'java', 'cs', 'cpp', 'c', 'html', 'python'] }
