@@ -10,9 +10,6 @@ set backspace=indent,eol,start
 " Show line numbers
 set number
 
-" Show relative line numbers
-set rnu
-
 " Smart auto-indenting inside numbered lists
 set formatoptions+=n
 
@@ -205,7 +202,7 @@ func! OnBufEnter()
 	if exists("&colorcolumn")
 		let &colorcolumn=g:colorcolumnWidth
 	endif
-	execute "setlocal syntax=" . b:syntax . " | setlocal rnu"
+	execute "setlocal syntax=" . b:syntax . " | setlocal nu"
 	set cursorline
 endfunc
 
