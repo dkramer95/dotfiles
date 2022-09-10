@@ -300,9 +300,15 @@ func! LoadPluginMappings()
 		vmap <expr> D DVB_Duplicate()
 	endif
 
-	" CommandT
-	if exists('g:command_t_loaded')
-		nnoremap <C-p> :CommandT<CR>
+	" FZF
+	if exists('g:loaded_fzf') && exists('g:loaded_fzf_vim')
+		nnoremap <silent> <C-p> :Files<CR>
+		nnoremap <silent> <C-f> :Files<CR>
+
+		nnoremap <silent> <Leader>b :Buffers<CR>
+		nnoremap <silent> <Leader>f :Rg<CR>
+		nnoremap <silent> <Leader>/ :BLines<CR>
+		nnoremap <silent> <Leader>' :Marks<CR>
 	endif
 
 	" Fugitive

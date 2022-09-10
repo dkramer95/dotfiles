@@ -112,9 +112,6 @@ command! MakeTags !ctags -R
 " Airline config
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
-" Command-T config
-let g:CommandTMaxFiles = 50000
-
 " Update time we normally want
 let s:normalUpdateTime = 2000
 
