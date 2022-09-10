@@ -50,7 +50,8 @@ Plug 'tomtom/tcomment_vim'
 Plug 'Flazz/vim-colorschemes'
 
 " Fast Fuzzy File finder
-Plug 'wincent/command-t'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " Enhanced matching of tags
 Plug 'tmhedberg/matchit'
