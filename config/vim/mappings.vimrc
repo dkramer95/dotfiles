@@ -332,14 +332,6 @@ func! LoadPluginMappings()
 		nmap <F7> :NERDTreeToggle<CR>
 	endif
 
-	"KSwitch
-	if exists('g:loaded_kswitch')
-		nnoremap <silent> <F9> :call KSwitch#Toggle()<CR>
-		let g:kswitch_debug_mode = 1
-		let g:kswitch_panel_direction = "left"
-		let g:kswitch_auto_hide = 0
-	endif
-
 	" TabooRename
 	if exists('g:loaded_taboo')
 		nnoremap <C-w>, :TabooRename
