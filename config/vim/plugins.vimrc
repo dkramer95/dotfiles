@@ -127,6 +127,9 @@ if exists('g:loaded_syntastic_plugin')
 	set statusline+=%*
 endif
 
+" fzf
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
+
 " Handle loading heavy weight plugins after startup
 func! s:LazyLoadPlugins()
 	if !exists('g:lazily_loaded_plugins')
